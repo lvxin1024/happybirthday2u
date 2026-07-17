@@ -98,12 +98,37 @@
         let targetHandScale = 1.0;
         let textOpacity = 0;
         let targetTextOpacity = 0;
+        let displayMode = new URLSearchParams(window.location.search).get('mode') === 'bg' ? 'bg' : 'full';
+        let bgRotationX = 0.3;
+        let bgRotationY = 0.0;
 
         const videoElement = document.getElementById('input_video');
         const messageEl = document.getElementById('message');
+        const hintEl = document.getElementById('hint');
 
         function clamp(value, min, max) {
             return Math.min(max, Math.max(min, value));
+        }
+
+        function applyMode(mode) {
+            displayMode = mode === 'bg' ? 'bg' : 'full';
+            const isBackgroundMode = displayMode === 'bg';
+
+            messageEl.hidden = isBackgroundMode;
+            hintEl.hidden = isBackgroundMode;
+
+            if (controls) {
+                controls.enabled = !isBackgroundMode;
+            }
+
+            if (isBackgroundMode) {
+                targetTextOpacity = 0;
+                textOpacity = 0;
+                messageEl.style.opacity = '0';
+                controls.enabled = false;
+            } else {
+                controls.enabled = true;
+            }
         }
 
         function getPointOnSaturn() {
@@ -198,9 +223,15 @@
         }
 
         function onHandsResults(results) {
+            if (displayMode === 'bg') {
+                targetTextOpacity = 0;
+            }
+
             if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
                 targetHandScale = 1.0;
-                targetTextOpacity = 0;
+                if (displayMode !== 'bg') {
+                    targetTextOpacity = 0;
+                }
                 return;
             }
 
@@ -222,8 +253,25 @@
             normalized = clamp(normalized, 0, 1);
 
             targetHandScale = minScale + normalized * (maxScale - minScale);
-            targetTextOpacity = clamp((targetHandScale - TEXT_FADE_START) / (TEXT_FADE_END - TEXT_FADE_START), 0, 1);
+
+            if (displayMode !== 'bg') {
+                targetTextOpacity = clamp((targetHandScale - TEXT_FADE_START) / (TEXT_FADE_END - TEXT_FADE_START), 0, 1);
+            }
         }
+
+        window.addEventListener('message', (event) => {
+            const data = event.data;
+            if (!data || data.type !== 'saturn-mode') {
+                if (data && data.type === 'saturn-drag' && displayMode === 'bg') {
+                    bgRotationY += (data.dx || 0) * 0.006;
+                    bgRotationX += (data.dy || 0) * 0.004;
+                }
+
+                return;
+            }
+
+            applyMode(data.mode);
+        });
 
         function initHands() {
             const hands = new Hands({
@@ -253,6 +301,10 @@
         }
 
         function updateMessageVisibility() {
+            if (displayMode === 'bg') {
+                return;
+            }
+
             textOpacity += (targetTextOpacity - textOpacity) * HAND_SENSITIVITY;
             messageEl.style.opacity = textOpacity.toFixed(3);
             messageEl.style.transform = `translate(-50%, calc(-50% + ${(1 - textOpacity) * 18}px)) scale(${0.98 + textOpacity * 0.02})`;
@@ -281,14 +333,23 @@
             }
 
             particles.geometry.attributes.position.needsUpdate = true;
-            particles.rotation.y += 0.002;
-            particles.rotation.z = 0.3;
+
+            if (displayMode === 'bg') {
+                bgRotationY += 0.0015;
+                particles.rotation.x = bgRotationX;
+                particles.rotation.y = bgRotationY;
+                particles.rotation.z = 0.3;
+            } else {
+                particles.rotation.y += 0.002;
+                particles.rotation.z = 0.3;
+            }
 
             controls.update();
             renderer.render(scene, camera);
         }
 
         initThree();
+        applyMode(displayMode);
         initHands();
         animate();
     </script>

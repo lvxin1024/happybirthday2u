@@ -8,6 +8,15 @@
   </head>
   <body>
     <div class="scroll-sky" aria-hidden="true"></div>
+    <div class="saturn-background" aria-hidden="true">
+      <iframe
+        class="saturn-frame"
+        src="./star.html?mode=bg"
+        title="土星粒子背景"
+        loading="eager"
+        allow="camera; autoplay; fullscreen"
+      ></iframe>
+    </div>
     <div class="cursor-dot" aria-hidden="true"></div>
     <div class="cursor-ring" aria-hidden="true"></div>
     <canvas id="confetti-canvas" aria-hidden="true"></canvas>
@@ -147,6 +156,8 @@
           <button class="primary-action magnetic" type="button" data-burst="big">再放一次生日烟花</button>
         </div>
       </section>
+
+      <section class="saturn-stage" id="saturn-stage" aria-label="土星沉浸展示"></section>
     </main>
 
     <div class="toast" role="status" aria-live="polite"></div>

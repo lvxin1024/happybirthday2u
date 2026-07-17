@@ -24,6 +24,9 @@ const sceneTitle = document.querySelector(".scene-title");
 const sceneBody = document.querySelector(".scene-body");
 const sceneSymbols = document.querySelector(".scene-symbols");
 const chapters = document.querySelectorAll(".chapter");
+const saturnBackground = document.querySelector(".saturn-background");
+const saturnFrame = saturnBackground?.querySelector(".saturn-frame");
+const saturnStage = document.querySelector("#saturn-stage");
 
 birthdayReveal.querySelector("p").textContent = birthdayName;
 birthdayReveal.querySelector("h2").textContent = `${birthdayAge}岁生日快乐！`;
@@ -113,6 +116,9 @@ let glowVx = 0;
 let glowVy = 0;
 let glowTargetX = 0;
 let glowTargetY = 0;
+let saturnMode = "bg";
+let saturnFrameReady = false;
+let saturnStageVisible = false;
 
 function getBeijingDate() {
   return new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Shanghai" }));
@@ -440,6 +446,43 @@ function switchScene(key, announce = true) {
   }
 }
 
+function syncSaturnMode(mode) {
+  const nextMode = mode === "full" ? "full" : "bg";
+  saturnMode = nextMode;
+
+  if (saturnBackground) {
+    saturnBackground.classList.toggle("is-interactive", nextMode === "full");
+  }
+
+  if (!saturnFrameReady || !saturnFrame?.contentWindow) {
+    return;
+  }
+
+  saturnFrame.contentWindow.postMessage({ type: "saturn-mode", mode: nextMode }, "*");
+}
+
+function syncSaturnDrag(dx, dy, phase) {
+  if (saturnMode !== "bg" || !saturnFrameReady || !saturnFrame?.contentWindow) {
+    return;
+  }
+
+  saturnFrame.contentWindow.postMessage(
+    {
+      type: "saturn-drag",
+      dx,
+      dy,
+      phase,
+    },
+    "*"
+  );
+}
+
+function resetPointerDragState() {
+  activePointerId = null;
+  pointerDragged = false;
+  saturnDragActive = false;
+}
+
 window.addEventListener("resize", resizeCanvas);
 
 window.addEventListener("pointermove", (event) => {
@@ -456,6 +499,37 @@ window.addEventListener("pointermove", (event) => {
       glowTargetY = 0;
     }
   }
+
+  if (draggingNebula) {
+    return;
+  }
+
+  if (activePointerId !== event.pointerId) {
+    return;
+  }
+
+  const dxFromStart = event.clientX - pointerStartX;
+  const dyFromStart = event.clientY - pointerStartY;
+  const movement = Math.hypot(dxFromStart, dyFromStart);
+
+  if (!pointerDragged && movement > 8) {
+    pointerDragged = true;
+  }
+
+  if (pointerDragged && saturnMode === "bg") {
+    const dx = event.clientX - pointerLastX;
+    const dy = event.clientY - pointerLastY;
+
+    if (!saturnDragActive) {
+      saturnDragActive = true;
+      syncSaturnDrag(dx, dy, "start");
+    } else {
+      syncSaturnDrag(dx, dy, "move");
+    }
+  }
+
+  pointerLastX = event.clientX;
+  pointerLastY = event.clientY;
 });
 
 window.addEventListener("pointerdown", (event) => {
@@ -479,8 +553,14 @@ window.addEventListener("pointerdown", (event) => {
     setGlowTargetFromPointer(event, 0.95);
   }
 
-  if (!startedGlowDrag) {
-    lightWish(event.clientX, event.clientY, Boolean(target.closest("[data-burst='big']")));
+  if (!isControl && !startedGlowDrag && !inNebula) {
+    activePointerId = event.pointerId;
+    pointerStartX = event.clientX;
+    pointerStartY = event.clientY;
+    pointerLastX = event.clientX;
+    pointerLastY = event.clientY;
+    pointerDragged = false;
+    saturnDragActive = false;
   }
 
   if (!isControl) {
@@ -489,8 +569,41 @@ window.addEventListener("pointerdown", (event) => {
   }
 });
 
-window.addEventListener("pointerup", releaseGlow);
-window.addEventListener("pointercancel", releaseGlow);
+window.addEventListener("pointerup", (event) => {
+  if (draggingGlow) {
+    releaseGlow();
+  }
+
+  if (draggingNebula) {
+    draggingNebula = false;
+  }
+
+  if (activePointerId === event.pointerId) {
+    if (saturnDragActive) {
+      syncSaturnDrag(0, 0, "end");
+    } else if (!pointerDragged) {
+      const target = event.target;
+      const isControl = target.closest("button, a");
+
+      if (!isControl) {
+        lightWish(event.clientX, event.clientY, Boolean(target.closest("[data-burst='big']")));
+      }
+    }
+
+    resetPointerDragState();
+  }
+});
+
+window.addEventListener("pointercancel", () => {
+  releaseGlow();
+  draggingNebula = false;
+
+  if (saturnDragActive) {
+    syncSaturnDrag(0, 0, "end");
+  }
+
+  resetPointerDragState();
+});
 
 nebulaCanvas.addEventListener("pointermove", (event) => {
   if (!draggingNebula) return;
@@ -572,6 +685,33 @@ for (const item of revealItems) {
   observer.observe(item);
 }
 
+if (saturnFrame) {
+  const syncWhenReady = () => {
+    saturnFrameReady = true;
+    syncSaturnMode(saturnStageVisible ? "full" : "bg");
+  };
+
+  saturnFrame.addEventListener("load", syncWhenReady);
+
+  if (saturnFrame.contentDocument?.readyState === "complete") {
+    syncWhenReady();
+  }
+}
+
+if (saturnStage) {
+  const saturnObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        saturnStageVisible = entry.isIntersecting && entry.intersectionRatio >= 0.45;
+        syncSaturnMode(saturnStageVisible ? "full" : "bg");
+      }
+    },
+    { threshold: [0.2, 0.45, 0.7] }
+  );
+
+  saturnObserver.observe(saturnStage);
+}
+
 resizeCanvas();
 drawConfetti();
 drawNebula();
@@ -579,5 +719,6 @@ updateCandleJelly();
 animateCursor();
 updateScrollSky();
 switchScene("six", false);
+syncSaturnMode("bg");
 checkGate();
 setInterval(checkGate, 1000);
