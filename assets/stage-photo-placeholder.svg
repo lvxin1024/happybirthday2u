@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-label="可替换照片占位图">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#061a3a"/>
+      <stop offset="0.55" stop-color="#125fcb"/>
+      <stop offset="1" stop-color="#b9dcff"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="35%" r="50%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".85"/>
+      <stop offset=".42" stop-color="#8fc4ff" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#2f8cff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="760" fill="url(#bg)"/>
+  <circle cx="600" cy="300" r="360" fill="url(#glow)"/>
+  <rect x="260" y="188" width="680" height="384" rx="42" fill="#fff" opacity=".16" stroke="#dceeff" stroke-width="3"/>
+  <path d="M350 500l150-150 112 110 72-70 166 110" fill="none" stroke="#eaf4ff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" opacity=".78"/>
+  <circle cx="796" cy="294" r="48" fill="#eaf4ff" opacity=".76"/>
+  <text x="600" y="640" text-anchor="middle" fill="#ffffff" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="44" font-weight="700">替换为你的照片</text>
+</svg>

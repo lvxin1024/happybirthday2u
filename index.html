@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>生日快乐 | 奇想剧场</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="scroll-sky" aria-hidden="true"></div>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+
+    <main>
+      <section class="countdown-gate" id="gate" aria-label="生日倒计时">
+        <canvas id="nebula-canvas" aria-hidden="true"></canvas>
+        <div class="gate-vignette" aria-hidden="true"></div>
+        <div class="gate-content">
+          <div class="single-candle" aria-hidden="true">
+            <span class="single-flame"></span>
+            <span class="single-wax"></span>
+            <span class="single-glow"></span>
+          </div>
+          <p class="gate-kicker">北京时间 <span class="beijing-time">--:--:--</span></p>
+          <h1 class="countdown-title">
+            距离晓彤姐姐生日还有
+            <span class="countdown-clock">--天 --小时 --分钟 --秒</span>
+          </h1>
+          <p class="gate-hint locked-copy">时间到达2026年7月28日的 00:00 前，生日剧场会安静等候。</p>
+          <p class="gate-hint unlocked-copy">拖动星云蛋糕，可以换一个角度看今晚的蓝色宇宙。</p>
+        </div>
+        <div class="birthday-reveal" aria-hidden="true">
+          <p>晓彤姐姐</p>
+          <h2>21岁生日快乐！</h2>
+        </div>
+      </section>
+
+      <section class="hero" id="top">
+        <div class="aurora aurora-one"></div>
+        <div class="aurora aurora-two"></div>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">蓝色生日限定</p>
+            <h1>生日快乐，今天为你开一场奇想剧场。</h1>
+            <p class="hero-text">
+              这是一张长页面生日卡：蓝色玻璃、舞台光束、雨声手提箱、咖啡沙发、爵士剪影、符咒风铃和夜幕迷雾会一路展开。
+            </p>
+            <div class="hero-actions">
+              <button class="primary-action magnetic" type="button" data-burst="big">
+                点亮蓝色祝福
+              </button>
+              <a class="secondary-action magnetic" href="#chapters">开始巡游</a>
+            </div>
+          </div>
+
+          <div class="stage-card" aria-label="蓝色生日蛋糕舞台">
+            <div class="spotlight"></div>
+            <div class="floating-icons" aria-hidden="true">
+              <span>♛</span>
+              <span>☕</span>
+              <span>☂</span>
+              <span>✦</span>
+              <span>☯</span>
+            </div>
+            <div class="cake">
+              <div class="candle"><span class="flame"></span></div>
+              <div class="icing"></div>
+              <div class="cake-body">
+                <div class="shine"></div>
+                <p>生日快乐</p>
+              </div>
+              <div class="plate"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro-strip reveal">
+        <div>
+          <p class="eyebrow">页面设定</p>
+          <h2>把喜欢的世界，折成一条蓝色生日长卷。</h2>
+        </div>
+        <p>
+          每个 IP 都只取“可感知的氛围符号”：女王麦克风、爵士霓虹、公寓猫眼、雨中手提箱、方块谜题、阴阳符咒、夜幕迷雾。点击卡片会触发对应的小彩蛋。
+        </p>
+      </section>
+
+      
+      <section class="interactive-stage reveal" id="stage">
+        <div class="stage-copy">
+          <p class="eyebrow">可切换舞台</p>
+          <h2>点一个灵感，换一幕生日场景。</h2>
+          <p>按钮会切换舞台文案和视觉符号。鼠标、点击纸屑和祝福词也会跟着蓝色主题响应。</p>
+          <div class="scene-tabs" role="tablist" aria-label="灵感舞台切换">
+            <button class="scene-tab active" type="button" data-target="six">SIX</button>
+            <button class="scene-tab" type="button" data-target="chicago">芝加哥</button>
+            <button class="scene-tab" type="button" data-target="friends">老友记</button>
+            <button class="scene-tab" type="button" data-target="reverse">1999</button>
+            <button class="scene-tab" type="button" data-target="rusty">锈湖</button>
+            <button class="scene-tab" type="button" data-target="onmyoji">阴阳师</button>
+            <button class="scene-tab" type="button" data-target="night">夜幕</button>
+          </div>
+        </div>
+
+        <div class="scene-display" data-active-scene="six">
+          <div class="scene-orb"></div>
+          <div class="theater-set" aria-label="可替换照片舞台窗口">
+            <div class="curtain curtain-left"></div>
+            <div class="curtain curtain-right"></div>
+            <div class="stage-lights" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <figure class="photo-window">
+              <img src="./assets/stage-photo-placeholder.svg" alt="可替换的生日照片" />
+              <figcaption>把图片放到 assets 目录后，替换这里的 img src。</figcaption>
+            </figure>
+            <div class="stage-floor" aria-hidden="true"></div>
+          </div>
+          <div class="scene-copy-panel">
+            <p class="scene-label">音乐剧 SIX</p>
+            <h3 class="scene-title">六位女王把聚光灯递给今天的你。</h3>
+            <p class="scene-body">愿你拥有舞台中央的笃定，也拥有谢幕以后被朋友拥抱的松弛。</p>
+            <div class="scene-symbols" aria-hidden="true">
+              <span>♛</span>
+              <span>♛</span>
+              <span>♛</span>
+              <span>♛</span>
+              <span>♛</span>
+              <span>♛</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="finale reveal" id="finale">
+        <div class="finale-panel">
+          <p class="eyebrow">终章</p>
+          <h2>愿新一岁，像蓝色清晨一样明亮。</h2>
+          <p>
+            愿你在喜欢的故事里得到勇气，在现实的一天里得到好运。点击任意地方，会掉落一颗蓝色祝福；按
+            <kbd>B</kbd>，会触发一次大彩蛋。
+          </p>
+          <button class="primary-action magnetic" type="button" data-burst="big">再放一次生日烟花</button>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" role="status" aria-live="polite"></div>
+    <script src="./birthday-config.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
