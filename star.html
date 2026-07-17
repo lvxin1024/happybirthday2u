@@ -79,7 +79,7 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
-    <video id="input_video" autoplay playsinline></video>
+    <video id="input_video" autoplay playsinline muted></video>
     <div id="message">我们每一个人，都由无数个十万分之一的幸存粒子组成，散落在数十亿的人海。所以我和你相遇是无数个微小粒子前赴后继、湮灭碰撞创造出来的奇迹,珍贵又难得。很高兴认识你，21岁的曹晓彤</div>
     <div id="hint">鼠标拖动可旋转视角，完全张开手掌时文字会浮现</div>
 
@@ -105,6 +105,10 @@
         const videoElement = document.getElementById('input_video');
         const messageEl = document.getElementById('message');
         const hintEl = document.getElementById('hint');
+        let sharedStreamFramePending = false;
+        let handsInstance = null;
+        let sharedStreamStarted = false;
+        let fallbackCameraStarted = false;
 
         function clamp(value, min, max) {
             return Math.min(max, Math.max(min, value));
@@ -129,6 +133,73 @@
             } else {
                 controls.enabled = true;
             }
+        }
+
+        function applyHandScale(scale) {
+            targetHandScale = scale;
+
+            if (displayMode !== 'bg') {
+                targetTextOpacity = clamp((targetHandScale - TEXT_FADE_START) / (TEXT_FADE_END - TEXT_FADE_START), 0, 1);
+            }
+        }
+
+        async function startHandsWithSharedStream(stream) {
+            if (!handsInstance || sharedStreamStarted || !stream) {
+                return;
+            }
+
+            sharedStreamStarted = true;
+            videoElement.srcObject = stream;
+
+            try {
+                await videoElement.play();
+            } catch (error) {
+                sharedStreamStarted = false;
+                return;
+            }
+
+            const processFrame = async () => {
+                if (!sharedStreamStarted) {
+                    return;
+                }
+
+                if (sharedStreamFramePending || videoElement.readyState < 2) {
+                    requestAnimationFrame(processFrame);
+                    return;
+                }
+
+                sharedStreamFramePending = true;
+
+                try {
+                    await handsInstance.send({ image: videoElement });
+                } finally {
+                    sharedStreamFramePending = false;
+                    requestAnimationFrame(processFrame);
+                }
+            };
+
+            processFrame();
+        }
+
+        function startCameraUtilsTracking() {
+            if (!handsInstance || fallbackCameraStarted || sharedStreamStarted) {
+                return;
+            }
+
+            fallbackCameraStarted = true;
+
+            const cameraUtils = new Camera(videoElement, {
+                onFrame: async () => {
+                    await handsInstance.send({ image: videoElement });
+                },
+                width: 320,
+                height: 240
+            });
+
+            cameraUtils.start().catch(() => {
+                fallbackCameraStarted = false;
+                // 摄像头不可用时，仍然保留静态土星展示
+            });
         }
 
         function getPointOnSaturn() {
@@ -252,21 +323,33 @@
             let normalized = (pinchDist / (palmSize || 0.1) - minRatio) / (maxRatio - minRatio);
             normalized = clamp(normalized, 0, 1);
 
-            targetHandScale = minScale + normalized * (maxScale - minScale);
-
-            if (displayMode !== 'bg') {
-                targetTextOpacity = clamp((targetHandScale - TEXT_FADE_START) / (TEXT_FADE_END - TEXT_FADE_START), 0, 1);
-            }
+            const scale = minScale + normalized * (maxScale - minScale);
+            applyHandScale(scale);
         }
 
         window.addEventListener('message', (event) => {
             const data = event.data;
-            if (!data || data.type !== 'saturn-mode') {
-                if (data && data.type === 'saturn-drag' && displayMode === 'bg') {
-                    bgRotationY += (data.dx || 0) * 0.006;
-                    bgRotationX += (data.dy || 0) * 0.004;
-                }
+            if (!data) {
+                return;
+            }
 
+            if (data.type === 'saturn-drag' && displayMode === 'bg') {
+                bgRotationY += (data.dx || 0) * 0.006;
+                bgRotationX += (data.dy || 0) * 0.004;
+                return;
+            }
+
+            if (data.type === 'saturn-camera-stream') {
+                startHandsWithSharedStream(data.stream);
+                return;
+            }
+
+            if (data.type === 'saturn-hand-scale') {
+                applyHandScale(typeof data.scale === 'number' ? data.scale : 1);
+                return;
+            }
+
+            if (data.type !== 'saturn-mode') {
                 return;
             }
 
@@ -274,30 +357,24 @@
         });
 
         function initHands() {
-            const hands = new Hands({
+            handsInstance = new Hands({
                 locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
             });
 
-            hands.setOptions({
+            handsInstance.setOptions({
                 maxNumHands: 1,
                 modelComplexity: 1,
                 minDetectionConfidence: 0.5,
                 minTrackingConfidence: 0.5
             });
 
-            hands.onResults(onHandsResults);
+            handsInstance.onResults(onHandsResults);
 
-            const cameraUtils = new Camera(videoElement, {
-                onFrame: async () => {
-                    await hands.send({ image: videoElement });
-                },
-                width: 320,
-                height: 240
-            });
+            if (window.parent !== window) {
+                return;
+            }
 
-            cameraUtils.start().catch(() => {
-                // 摄像头不可用时，仍然保留静态土星展示
-            });
+            startCameraUtilsTracking();
         }
 
         function updateMessageVisibility() {

@@ -24,6 +24,7 @@ const sceneTitle = document.querySelector(".scene-title");
 const sceneBody = document.querySelector(".scene-body");
 const sceneSymbols = document.querySelector(".scene-symbols");
 const chapters = document.querySelectorAll(".chapter");
+const sharedCameraVideo = document.querySelector("#shared_camera_video");
 const saturnBackground = document.querySelector(".saturn-background");
 const saturnFrame = saturnBackground?.querySelector(".saturn-frame");
 const saturnStage = document.querySelector("#saturn-stage");
@@ -119,6 +120,16 @@ let glowTargetY = 0;
 let saturnMode = "bg";
 let saturnFrameReady = false;
 let saturnStageVisible = false;
+let activePointerId = null;
+let pointerStartX = 0;
+let pointerStartY = 0;
+let pointerLastX = 0;
+let pointerLastY = 0;
+let pointerDragged = false;
+let saturnDragActive = false;
+let parentHands = null;
+let parentHandsStarted = false;
+let parentHandsFramePending = false;
 
 function getBeijingDate() {
   return new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Shanghai" }));
@@ -461,6 +472,153 @@ function syncSaturnMode(mode) {
   saturnFrame.contentWindow.postMessage({ type: "saturn-mode", mode: nextMode }, "*");
 }
 
+function syncSaturnHandScale(scale) {
+  if (!saturnFrameReady || !saturnFrame?.contentWindow) {
+    return;
+  }
+
+  saturnFrame.contentWindow.postMessage({ type: "saturn-hand-scale", scale }, "*");
+}
+
+function syncSaturnCameraStream() {
+  if (!saturnFrameReady || !saturnFrame?.contentWindow || !window.__saturnCameraStream) {
+    return;
+  }
+
+  try {
+    saturnFrame.contentWindow.postMessage(
+      {
+        type: "saturn-camera-stream",
+        stream: window.__saturnCameraStream,
+      },
+      "*"
+    );
+  } catch (error) {
+    // 某些环境不支持跨窗口克隆 MediaStream，保留静态土星展示。
+  }
+}
+
+function loadSaturnFrame() {
+  if (!saturnFrame || saturnFrame.dataset.loaded === "true") {
+    return;
+  }
+
+  const nextSrc = saturnFrame.dataset.src;
+  if (!nextSrc) {
+    return;
+  }
+
+  saturnFrame.dataset.loaded = "true";
+  saturnFrame.src = nextSrc;
+}
+
+async function requestCameraPermissionFirst() {
+  if (!navigator.mediaDevices?.getUserMedia) {
+    loadSaturnFrame();
+    return;
+  }
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+    window.__saturnCameraStream = stream;
+
+    window.addEventListener(
+      "beforeunload",
+      () => {
+        stream.getTracks().forEach((track) => track.stop());
+      },
+      { once: true }
+    );
+
+    startParentHandTracking(stream);
+  } catch (error) {
+    syncSaturnHandScale(1);
+    // 允许用户拒绝；土星页会继续降级显示静态内容。
+  } finally {
+    loadSaturnFrame();
+  }
+}
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+async function startParentHandTracking(stream) {
+  if (!stream || parentHandsStarted || typeof Hands !== "function" || !sharedCameraVideo) {
+    return;
+  }
+
+  parentHandsStarted = true;
+  sharedCameraVideo.srcObject = stream;
+
+  try {
+    await sharedCameraVideo.play();
+  } catch (error) {
+    return;
+  }
+
+  parentHands = new Hands({
+    locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`,
+  });
+
+  parentHands.setOptions({
+    maxNumHands: 1,
+    modelComplexity: 1,
+    minDetectionConfidence: 0.5,
+    minTrackingConfidence: 0.5,
+  });
+
+  parentHands.onResults((results) => {
+    if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
+      syncSaturnHandScale(1);
+      return;
+    }
+
+    const landmarks = results.multiHandLandmarks[0];
+    const wrist = landmarks[0];
+    const thumbTip = landmarks[4];
+    const indexTip = landmarks[8];
+    const indexBase = landmarks[5];
+
+    const palmSize = Math.hypot(indexBase.x - wrist.x, indexBase.y - wrist.y);
+    const pinchDist = Math.hypot(thumbTip.x - indexTip.x, thumbTip.y - indexTip.y);
+
+    const minRatio = 0.2;
+    const maxRatio = 1.2;
+    const minScale = 0.3;
+    const maxScale = 2.5;
+
+    let normalized = (pinchDist / (palmSize || 0.1) - minRatio) / (maxRatio - minRatio);
+    normalized = clamp(normalized, 0, 1);
+
+    const scale = minScale + normalized * (maxScale - minScale);
+    syncSaturnHandScale(scale);
+  });
+
+  const processFrame = async () => {
+    if (!parentHands || sharedCameraVideo.readyState < 2) {
+      requestAnimationFrame(processFrame);
+      return;
+    }
+
+    if (parentHandsFramePending) {
+      requestAnimationFrame(processFrame);
+      return;
+    }
+
+    parentHandsFramePending = true;
+
+    try {
+      await parentHands.send({ image: sharedCameraVideo });
+    } finally {
+      parentHandsFramePending = false;
+      requestAnimationFrame(processFrame);
+    }
+  };
+
+  processFrame();
+}
+
 function syncSaturnDrag(dx, dy, phase) {
   if (saturnMode !== "bg" || !saturnFrameReady || !saturnFrame?.contentWindow) {
     return;
@@ -482,6 +640,12 @@ function resetPointerDragState() {
   pointerDragged = false;
   saturnDragActive = false;
 }
+
+window.addEventListener("message", (event) => {
+  if (event.data?.type === "saturn-camera-request") {
+    syncSaturnCameraStream();
+  }
+});
 
 window.addEventListener("resize", resizeCanvas);
 
@@ -689,6 +853,8 @@ if (saturnFrame) {
   const syncWhenReady = () => {
     saturnFrameReady = true;
     syncSaturnMode(saturnStageVisible ? "full" : "bg");
+    syncSaturnCameraStream();
+    syncSaturnHandScale(1);
   };
 
   saturnFrame.addEventListener("load", syncWhenReady);
@@ -720,5 +886,6 @@ animateCursor();
 updateScrollSky();
 switchScene("six", false);
 syncSaturnMode("bg");
+requestCameraPermissionFirst();
 checkGate();
 setInterval(checkGate, 1000);

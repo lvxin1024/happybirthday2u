@@ -11,7 +11,8 @@
     <div class="saturn-background" aria-hidden="true">
       <iframe
         class="saturn-frame"
-        src="./star.html?mode=bg"
+        src="about:blank"
+        data-src="./star.html?mode=bg"
         title="土星粒子背景"
         loading="eager"
         allow="camera; autoplay; fullscreen"
@@ -20,6 +21,7 @@
     <div class="cursor-dot" aria-hidden="true"></div>
     <div class="cursor-ring" aria-hidden="true"></div>
     <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+    <video id="shared_camera_video" autoplay playsinline muted aria-hidden="true"></video>
 
 
     <main>
@@ -161,6 +163,7 @@
     </main>
 
     <div class="toast" role="status" aria-live="polite"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
     <script src="./birthday-config.js"></script>
     <script src="./script.js"></script>
   </body>
