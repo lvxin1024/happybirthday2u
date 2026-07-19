@@ -3,6 +3,151 @@ const unlockAt = Date.parse(`${config.birthdayDate || "2026-07-18"}T00:00:00+08:
 const birthdayName = config.birthdayName || "晓彤姐姐";
 const birthdayAge = config.birthdayAge || 21;
 
+const photoMemories = [
+  {
+    date: "2025.11.02",
+    location: "杭州",
+    title: "这一张我记得很清楚。",
+    note: "这张其实拍了很多遍，但你最后笑出来的那一下，像是整天的光都刚好落进镜头里。"
+  },
+  {
+    date: "2026.01.14",
+    location: "上海",
+    title: "我很喜欢这种瞬间。",
+    note: "不是那种很用力的漂亮，是你站在那里，画面就会自动变得很温柔。"
+  },
+  {
+    date: "2026.03.28",
+    location: "苏州",
+    title: "这一幕很像旅行日志。",
+    note: "我总觉得如果以后再想起这一天，先记起来的一定不是天气，而是你当时看过来的表情。"
+  },
+  {
+    date: "2026.05.09",
+    location: "南京",
+    title: "想把这张一直留着。",
+    note: "有些照片不是因为构图多完美，只是因为看着它，就会忍不住觉得和你有关的事情都值得被认真保存。"
+  }
+];
+
+const fandomMessages = {
+  six: {
+    label: "SIX 宇宙来信",
+    title: "今晚，王冠归你。",
+    theme: "six",
+    wishes: [
+      "女王们一致决定，今天舞台中央的名字只能是你。",
+      "把聚光灯、掌声和最亮的那一束蓝色，都交给寿星本人。",
+      "今晚不需要争夺主角位，因为你一出现，结局就已经写好了。"
+    ]
+  },
+  chicago: {
+    label: "Chicago 夜场",
+    title: "你的生日，应该有最漂亮的节拍。",
+    theme: "chicago",
+    wishes: [
+      "愿你每一次出场都踩在自己的鼓点上，漂亮又从容。",
+      "今晚的灯牌为你亮起，连运气都该带一点爵士感。",
+      "愿普通的一天，只要落到你手里，也会变得很有戏。"
+    ]
+  },
+  friends: {
+    label: "Friends 留位中",
+    title: "我们一直会给你留个位置。",
+    theme: "friends",
+    wishes: [
+      "不管世界多忙，你都应该拥有随时能坐下来的那张沙发。",
+      "愿你每次回头，都有人说，来吧，这里一直给你留着。",
+      "生日快乐，愿你的开心永远有人接得住。"
+    ]
+  },
+  reverse: {
+    label: "重返未来：1999",
+    title: "新的一岁，愿幸运与你同行。",
+    theme: "reverse",
+    wishes: [
+      "新的时代已经开场，愿好运总在你身边同行。",
+      "若时间会收藏礼物，那今天一定会被标上最亮的蓝色。",
+      "愿所有正确的相遇，都在这一年比你先一步抵达。"
+    ]
+  },
+  rusty: {
+    label: "Rusty Lake 档案",
+    title: "又一年，被你顺利解锁。",
+    theme: "rusty",
+    wishes: [
+      "愿这一岁的谜题都有答案，暗门后面都藏着惊喜。",
+      "生日是新的机关，而你总会拿到最对的那把钥匙。",
+      "Another year unlocked，接下来请继续漂亮通关。"
+    ]
+  },
+  onmyoji: {
+    label: "阴阳师守护",
+    title: "今夜的结界，只为你发光。",
+    theme: "onmyoji",
+    wishes: [
+      "愿所有坏天气都被拦在门外，你只需要安心收下喜欢。",
+      "今夜会有温柔的式神替你守灯，把心愿一路送到天亮。",
+      "愿你在每个深夜，都还有召唤光亮的能力。"
+    ]
+  },
+  night: {
+    label: "夜幕微光",
+    title: "雾散的时候，灯会为你先亮。",
+    theme: "night",
+    wishes: [
+      "愿你穿过每一段夜色时，都知道前面有人替你留灯。",
+      "今晚的月光不负责照别人，只负责让你生日快乐。",
+      "如果偶尔会迷路，也愿你总能被微光稳稳接住。"
+    ]
+  }
+};
+
+const gachaBlessings = [
+  {
+    rarity: "★★★★★",
+    tier: "blue",
+    title: "好运值 +100%",
+    body: "今天出门、许愿、点击按钮，统统有加成。",
+    signature: "维尔汀批注：这张请优先给寿星。"
+  },
+  {
+    rarity: "★★★★★",
+    tier: "blue",
+    title: "睡眠质量 +20%",
+    body: "今晚做的梦会很轻，明早醒来也会带一点好心情。",
+    signature: "苏芙比留言：这是一张温柔生效的卡。"
+  },
+  {
+    rarity: "★★★★★★",
+    tier: "gold",
+    title: "DDL 自动顺延一天",
+    body: "虽然是假的，但今天的你值得拥有一次无条件宽限。",
+    signature: "箱中电波：请不要深究真实性。"
+  },
+  {
+    rarity: "★★★★★★",
+    tier: "gold",
+    title: "今日开心保底",
+    body: "无论今天发生什么，快乐都会在结尾准时结算。",
+    signature: "维尔汀批注：此卡建议立即生效。"
+  },
+  {
+    rarity: "★★★★★",
+    tier: "blue",
+    title: "见面运上升",
+    body: "想见的人更容易见到，想说的话也更容易被听见。",
+    signature: "十四行诗：愿今日的一切都恰到好处。"
+  },
+  {
+    rarity: "★★★★★★",
+    tier: "gold",
+    title: "今天的你绝对主角",
+    body: "剧情自动把镜头切给你，连背景音乐都会更偏爱一点。",
+    signature: "箱中电波：主角位已锁定，请放心登场。"
+  }
+];
+
 const canvas = document.querySelector("#confetti-canvas");
 const ctx = canvas.getContext("2d");
 const nebulaCanvas = document.querySelector("#nebula-canvas");
@@ -17,17 +162,29 @@ const beijingTime = document.querySelector(".beijing-time");
 const birthdayReveal = document.querySelector(".birthday-reveal");
 const magneticItems = document.querySelectorAll(".magnetic");
 const revealItems = document.querySelectorAll(".reveal");
-const sceneTabs = document.querySelectorAll(".scene-tab");
-const sceneDisplay = document.querySelector(".scene-display");
-const sceneLabel = document.querySelector(".scene-label");
-const sceneTitle = document.querySelector(".scene-title");
-const sceneBody = document.querySelector(".scene-body");
-const sceneSymbols = document.querySelector(".scene-symbols");
-const chapters = document.querySelectorAll(".chapter");
 const sharedCameraVideo = document.querySelector("#shared_camera_video");
 const saturnBackground = document.querySelector(".saturn-background");
 const saturnFrame = saturnBackground?.querySelector(".saturn-frame");
 const saturnStage = document.querySelector("#saturn-stage");
+const overlayLayer = document.querySelector(".overlay-layer");
+const photoModal = document.querySelector(".photo-modal");
+const photoModalImage = document.querySelector(".photo-modal-image");
+const photoModalMeta = document.querySelector(".photo-modal-meta");
+const photoModalTitle = document.querySelector("#photo-modal-title");
+const photoModalText = document.querySelector(".photo-modal-text");
+const fandomModal = document.querySelector(".fandom-modal");
+const fandomLabel = document.querySelector(".fandom-label");
+const fandomTitle = document.querySelector(".fandom-title");
+const fandomWishes = document.querySelector(".fandom-wishes");
+const photoCards = document.querySelectorAll(".memory-polaroid");
+const planets = document.querySelectorAll(".planet");
+const gachaButton = document.querySelector(".gacha-button");
+const gachaResult = document.querySelector(".gacha-result");
+const gachaRarity = document.querySelector(".gacha-rarity");
+const gachaTitle = document.querySelector(".gacha-title");
+const gachaBody = document.querySelector(".gacha-body");
+const gachaSignature = document.querySelector(".gacha-signature");
+const letterLines = document.querySelectorAll(".letter-line");
 
 birthdayReveal.querySelector("p").textContent = birthdayName;
 birthdayReveal.querySelector("h2").textContent = `${birthdayAge}岁生日快乐！`;
@@ -40,60 +197,10 @@ const wishes = [
   "生日快乐",
   "新一岁闪闪发亮",
   "故事会偏爱你",
-  "朋友一直都在"
+  "朋友一直都在",
+  "今天所有宇宙都向你靠拢",
+  "这份喜欢只写给你"
 ];
-
-const scenes = {
-  six: {
-    label: "音乐剧 SIX",
-    title: "六位女王把聚光灯递给今天的你。",
-    body: "愿你拥有舞台中央的笃定，也拥有谢幕以后被朋友拥抱的松弛。",
-    symbols: ["♛", "♛", "♛", "♛", "♛", "♛"],
-    toast: "SIX 舞台亮起：今天你是女王。"
-  },
-  chicago: {
-    label: "音乐剧芝加哥",
-    title: "爵士灯牌闪烁，生日节拍刚刚好。",
-    body: "愿你说话有底气，行动有节奏，连普通一天都像漂亮的开场八拍。",
-    symbols: ["JAZZ", "✦", "帽", "椅", "灯"],
-    toast: "芝加哥灯牌亮了：给你一点爵士好运。"
-  },
-  friends: {
-    label: "老友记",
-    title: "沙发留好，咖啡也热着。",
-    body: "愿你永远有可以随时坐下的人，有不用解释也被懂得的快乐。",
-    symbols: ["☕", "沙发", "门框", "笑声", "朋友"],
-    toast: "老友记彩蛋：朋友席已为你保留。"
-  },
-  reverse: {
-    label: "重返未来：1999",
-    title: "雨落进手提箱，时间替你保存快乐。",
-    body: "愿过去给你灵感，未来给你回响，而今天给你一场清澈的蓝色雨。",
-    symbols: ["1999", "☂", "雨", "箱", "钟"],
-    toast: "1999 雨幕开启：愿望被收入手提箱。"
-  },
-  rusty: {
-    label: "锈湖",
-    title: "解开蓝色方块，里面是好运。",
-    body: "愿生活里的谜题都有线索，难题背后都藏着一枚温柔的钥匙。",
-    symbols: ["◆", "湖", "钥", "谜", "方"],
-    toast: "锈湖谜题解锁：好运钥匙掉落。"
-  },
-  onmyoji: {
-    label: "阴阳师",
-    title: "符咒轻响，把坏天气挡在门外。",
-    body: "愿新一岁有人守护，也有自己召唤光亮的能力。",
-    symbols: ["☯", "符", "铃", "阵", "守"],
-    toast: "阴阳阵已启动：祝福守护中。"
-  },
-  night: {
-    label: "夜幕之下",
-    title: "雾散以后，路灯把出口照亮。",
-    body: "愿你穿过所有夜色时，都能看见前方有一束专门为你留着的蓝光。",
-    symbols: ["月", "雾", "钥", "夜", "灯"],
-    toast: "夜幕彩蛋：雾散了，生日灯亮了。"
-  }
-};
 
 let confetti = [];
 let particles = [];
@@ -130,6 +237,8 @@ let saturnDragActive = false;
 let parentHands = null;
 let parentHandsStarted = false;
 let parentHandsFramePending = false;
+let activeModal = null;
+let gachaBusy = false;
 
 function getBeijingDate() {
   return new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Shanghai" }));
@@ -152,7 +261,9 @@ function pad(value) {
 function updateBeijingClock() {
   const now = getBeijingDate();
   beijingTime.textContent = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-  countdownClock.textContent = formatCountdown(unlockAt - Date.now());
+  if (!nebulaUnlocked) {
+    countdownClock.textContent = formatCountdown(unlockAt - Date.now());
+  }
 }
 
 function resizeCanvas() {
@@ -179,7 +290,7 @@ function showToast(message) {
 }
 
 function makeConfetti(x, y, amount = 42) {
-  for (let i = 0; i < amount; i += 1) {
+  for (let index = 0; index < amount; index += 1) {
     const angle = Math.random() * Math.PI * 2;
     const speed = 2 + Math.random() * 6;
     confetti.push({
@@ -432,31 +543,6 @@ function checkGate() {
   }
 }
 
-function switchScene(key, announce = true) {
-  const scene = scenes[key];
-  if (!scene) return;
-
-  sceneTabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.target === key));
-  sceneDisplay.dataset.activeScene = key;
-  sceneLabel.textContent = scene.label;
-  sceneTitle.textContent = scene.title;
-  sceneBody.textContent = scene.body;
-  sceneSymbols.innerHTML = scene.symbols.map((symbol) => `<span>${symbol}</span>`).join("");
-  sceneDisplay.animate(
-    [
-      { opacity: 0.78, transform: "translateY(10px) scale(0.985)" },
-      { opacity: 1, transform: "translateY(0) scale(1)" }
-    ],
-    { duration: 360, easing: "cubic-bezier(.16,1,.3,1)" }
-  );
-
-  if (announce) {
-    showToast(scene.toast);
-    const rect = sceneDisplay.getBoundingClientRect();
-    makeConfetti(rect.left + rect.width * 0.5, rect.top + rect.height * 0.32, 78);
-  }
-}
-
 function syncSaturnMode(mode) {
   const nextMode = mode === "full" ? "full" : "bg";
   saturnMode = nextMode;
@@ -533,7 +619,6 @@ async function requestCameraPermissionFirst() {
     startParentHandTracking(stream);
   } catch (error) {
     syncSaturnHandScale(1);
-    // 允许用户拒绝；土星页会继续降级显示静态内容。
   } finally {
     loadSaturnFrame();
   }
@@ -639,6 +724,161 @@ function resetPointerDragState() {
   activePointerId = null;
   pointerDragged = false;
   saturnDragActive = false;
+}
+
+function openOverlay(modal) {
+  if (!overlayLayer || !modal) {
+    return;
+  }
+
+  if (activeModal && activeModal !== modal) {
+    closeOverlay(activeModal);
+  }
+
+  activeModal = modal;
+  overlayLayer.classList.add("is-open");
+  overlayLayer.setAttribute("aria-hidden", "false");
+  modal.hidden = false;
+  modal.classList.add("is-open");
+  document.body.classList.add("overlay-open");
+}
+
+function closeOverlay(modal = activeModal) {
+  if (!overlayLayer || !modal) {
+    return;
+  }
+
+  modal.classList.remove("is-open");
+  modal.hidden = true;
+
+  if (modal === activeModal) {
+    activeModal = null;
+  }
+
+  if (!activeModal) {
+    overlayLayer.classList.remove("is-open");
+    overlayLayer.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("overlay-open");
+  }
+}
+
+function pulseFromSource(element) {
+  if (!element) {
+    return;
+  }
+
+  element.animate(
+    [
+      { transform: "scale(1)", filter: "brightness(1)" },
+      { transform: "scale(1.08)", filter: "brightness(1.18)" },
+      { transform: "scale(1)", filter: "brightness(1)" }
+    ],
+    { duration: 420, easing: "cubic-bezier(.16,1,.3,1)" }
+  );
+}
+
+function openPhotoModal(photoId, sourceCard) {
+  const memory = photoMemories[photoId];
+  if (!memory || !photoModal) {
+    return;
+  }
+
+  const image = sourceCard?.querySelector("img");
+  photoModalImage.src = image?.getAttribute("src") || "./image.png";
+  photoModalImage.alt = image?.getAttribute("alt") || "放大的生日照片";
+  photoModalMeta.textContent = `${memory.date} · ${memory.location}`;
+  photoModalTitle.textContent = memory.title;
+  photoModalText.textContent = memory.note;
+  pulseFromSource(sourceCard);
+  openOverlay(photoModal);
+  photoModal.querySelector(".photo-modal-media")?.animate(
+    [
+      { opacity: 0, transform: "translateY(24px) scale(0.92) rotate(-3deg)" },
+      { opacity: 1, transform: "translateY(0) scale(1) rotate(0deg)" }
+    ],
+    { duration: 520, easing: "cubic-bezier(.16,1,.3,1)" }
+  );
+}
+
+function openFandomModal(key, sourcePlanet) {
+  const data = fandomMessages[key];
+  if (!data || !fandomModal) {
+    return;
+  }
+
+  fandomModal.dataset.theme = data.theme;
+  fandomLabel.textContent = data.label;
+  fandomTitle.textContent = data.title;
+  fandomWishes.innerHTML = data.wishes.map((wish) => `<p>${wish}</p>`).join("");
+  pulseFromSource(sourcePlanet);
+  openOverlay(fandomModal);
+  fandomModal.querySelector(".fandom-modal-shell")?.animate(
+    [
+      { opacity: 0, transform: "scale(0.92) translateY(24px)" },
+      { opacity: 1, transform: "scale(1) translateY(0)" }
+    ],
+    { duration: 520, easing: "cubic-bezier(.16,1,.3,1)" }
+  );
+  showToast("一颗行星被点亮了。");
+}
+
+function drawGachaCard() {
+  if (gachaBusy || !gachaResult) {
+    return;
+  }
+
+  gachaBusy = true;
+  const blessing = gachaBlessings[Math.floor(Math.random() * gachaBlessings.length)];
+  gachaResult.dataset.rarity = blessing.tier;
+  gachaResult.classList.remove("is-flipped");
+  gachaResult.classList.add("is-drawing");
+
+  if (gachaButton) {
+    gachaButton.disabled = true;
+  }
+
+  showToast(blessing.tier === "gold" ? "金色轨迹出现了。" : "蓝色轨迹展开中。");
+  makeConfetti(window.innerWidth * 0.5, window.innerHeight * 0.62, blessing.tier === "gold" ? 120 : 78);
+
+  setTimeout(() => {
+    gachaRarity.textContent = blessing.rarity;
+    gachaTitle.textContent = blessing.title;
+    gachaBody.textContent = blessing.body;
+    gachaSignature.textContent = blessing.signature;
+    gachaResult.classList.add("is-flipped");
+  }, 720);
+
+  setTimeout(() => {
+    gachaResult.classList.remove("is-drawing");
+    if (gachaButton) {
+      gachaButton.disabled = false;
+    }
+    gachaBusy = false;
+  }, 1480);
+}
+
+function setupLetterReveal() {
+  const letterObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) {
+          continue;
+        }
+
+        letterLines.forEach((line, index) => {
+          line.style.transitionDelay = `${index * 280}ms`;
+          line.classList.add("visible");
+        });
+        letterObserver.disconnect();
+      }
+    },
+    { threshold: 0.36 }
+  );
+
+  const letterSection = document.querySelector(".letter-section");
+  if (letterSection) {
+    letterObserver.observe(letterSection);
+  }
 }
 
 window.addEventListener("message", (event) => {
@@ -748,8 +988,9 @@ window.addEventListener("pointerup", (event) => {
     } else if (!pointerDragged) {
       const target = event.target;
       const isControl = target.closest("button, a");
+      const insideOverlay = target.closest(".overlay-layer.is-open");
 
-      if (!isControl) {
+      if (!isControl && !insideOverlay) {
         lightWish(event.clientX, event.clientY, Boolean(target.closest("[data-burst='big']")));
       }
     }
@@ -803,6 +1044,11 @@ cake.addEventListener("click", (event) => {
 });
 
 window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && activeModal) {
+    closeOverlay(activeModal);
+    return;
+  }
+
   if (event.key.toLowerCase() === "b") {
     lightWish(window.innerWidth / 2, window.innerHeight * 0.38, true);
   }
@@ -822,17 +1068,31 @@ for (const item of magneticItems) {
   });
 }
 
-sceneTabs.forEach((tab) => {
-  tab.addEventListener("click", () => switchScene(tab.dataset.target));
-});
-
-chapters.forEach((chapter) => {
-  chapter.addEventListener("click", (event) => {
-    const sceneKey = chapter.dataset.scene;
-    switchScene(sceneKey);
-    makeWord(event.clientX, event.clientY);
+photoCards.forEach((card) => {
+  card.addEventListener("click", () => {
+    openPhotoModal(Number(card.dataset.photoId), card);
   });
 });
+
+planets.forEach((planet) => {
+  planet.addEventListener("click", () => {
+    openFandomModal(planet.dataset.fandom, planet);
+  });
+});
+
+overlayLayer?.addEventListener("click", (event) => {
+  if (event.target === overlayLayer) {
+    closeOverlay(activeModal);
+  }
+});
+
+document.querySelectorAll(".overlay-close").forEach((button) => {
+  button.addEventListener("click", () => {
+    closeOverlay(button.closest(".photo-modal, .fandom-modal"));
+  });
+});
+
+gachaButton?.addEventListener("click", drawGachaCard);
 
 const observer = new IntersectionObserver(
   (entries) => {
@@ -878,13 +1138,13 @@ if (saturnStage) {
   saturnObserver.observe(saturnStage);
 }
 
+setupLetterReveal();
 resizeCanvas();
 drawConfetti();
 drawNebula();
 updateCandleJelly();
 animateCursor();
 updateScrollSky();
-switchScene("six", false);
 syncSaturnMode("bg");
 requestCameraPermissionFirst();
 checkGate();

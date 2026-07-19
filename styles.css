@@ -740,6 +740,816 @@ h3 {
   animation-delay: -3s;
 }
 
+.photo-wall,
+.interest-universe,
+.gacha-section,
+.letter-section,
+.finale {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.hero-grid-simplified {
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.95fr);
+}
+
+.hero-copy-compact {
+  max-width: 660px;
+}
+
+.hero-copy-compact h1 {
+  margin-bottom: 28px;
+  line-height: 1.02;
+}
+
+.memory-card {
+  min-height: 520px;
+}
+
+.memory-caption {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  bottom: 28px;
+  z-index: 4;
+  margin: 0;
+  padding: 14px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.66);
+  border-radius: 999px;
+  color: #244568;
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(16px);
+  text-align: center;
+}
+
+.section-heading {
+  margin-bottom: 30px;
+}
+
+.section-heading h2,
+.narrow-heading h2 {
+  max-width: 760px;
+  margin-bottom: 0;
+}
+
+.narrow-heading {
+  text-align: center;
+}
+
+.narrow-heading h2 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.photo-wall {
+  padding: 36px 0 108px;
+}
+
+.photo-board {
+  position: relative;
+  padding: clamp(28px, 4vw, 54px);
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  border-radius: 38px;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 22px;
+  background:
+    radial-gradient(circle at 16% 12%, rgba(143, 196, 255, 0.4), transparent 18rem),
+    radial-gradient(circle at 82% 18%, rgba(47, 140, 255, 0.2), transparent 16rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.46));
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(24px) saturate(1.3);
+}
+
+.photo-board::before {
+  position: absolute;
+  inset: 16px;
+  border: 1px dashed rgba(47, 140, 255, 0.18);
+  border-radius: 28px;
+  content: "";
+  pointer-events: none;
+}
+
+.memory-polaroid {
+  position: relative;
+  z-index: 1;
+  padding: 14px 14px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 24px;
+  display: grid;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 24px 50px rgba(7, 31, 70, 0.12);
+  transition: transform 320ms ease, box-shadow 320ms ease;
+}
+
+.memory-polaroid:hover {
+  transform: translateY(-8px) rotate(0deg) !important;
+  box-shadow: 0 34px 72px rgba(7, 31, 70, 0.18);
+}
+
+.memory-polaroid img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
+  display: block;
+  object-fit: cover;
+  background: rgba(7, 20, 38, 0.08);
+}
+
+.memory-polaroid:nth-child(1) {
+  grid-column: span 4;
+}
+
+.memory-polaroid:nth-child(2) {
+  grid-column: span 3;
+  margin-top: 34px;
+}
+
+.memory-polaroid:nth-child(3) {
+  grid-column: span 3;
+  margin-top: 92px;
+}
+
+.memory-polaroid:nth-child(4) {
+  grid-column: span 2;
+  margin-top: 18px;
+}
+
+.wide-frame img {
+  aspect-ratio: 3 / 5;
+}
+
+.tilt-left {
+  transform: rotate(-5deg);
+}
+
+.tilt-right {
+  transform: rotate(4deg);
+}
+
+.lift-up {
+  transform: rotate(-2deg) translateY(-12px);
+}
+
+.polaroid-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #4d6481;
+  font-size: 0.88rem;
+}
+
+.polaroid-meta p {
+  margin: 0;
+}
+
+.photo-tape {
+  position: absolute;
+  top: -10px;
+  width: 74px;
+  height: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(143, 196, 255, 0.36));
+  box-shadow: 0 8px 18px rgba(7, 31, 70, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.tape-left {
+  left: 22px;
+  transform: rotate(-12deg);
+}
+
+.tape-center {
+  left: 50%;
+  transform: translateX(-50%) rotate(4deg);
+}
+
+.tape-right {
+  right: 24px;
+  transform: rotate(10deg);
+}
+
+.tape-double {
+  left: 50%;
+  width: 100px;
+  transform: translateX(-50%) rotate(-3deg);
+}
+
+.photo-sticker {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #0b3f83;
+  font-weight: 900;
+  background: linear-gradient(145deg, #ffffff, #bfe2ff);
+  box-shadow: 0 12px 24px rgba(47, 140, 255, 0.16);
+}
+
+.sticker-heart {
+  background: linear-gradient(145deg, #ffffff, #dceeff);
+}
+
+.sticker-note {
+  background: linear-gradient(145deg, #f8fbff, #9fd0ff);
+}
+
+.sticker-moon {
+  background: linear-gradient(145deg, #ffffff, #cfe8ff);
+}
+
+.interest-universe {
+  padding: 10px 0 108px;
+}
+
+.universe-stage {
+  position: relative;
+  min-height: 760px;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 40px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 24%, rgba(191, 226, 255, 0.22), transparent 14rem),
+    radial-gradient(circle at 24% 78%, rgba(47, 140, 255, 0.26), transparent 18rem),
+    linear-gradient(180deg, rgba(2, 5, 13, 0.92), rgba(6, 20, 43, 0.92) 54%, rgba(11, 63, 131, 0.72));
+  box-shadow: var(--shadow);
+}
+
+.universe-stage::before,
+.universe-stage::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.universe-stage::before {
+  background-image:
+    radial-gradient(circle at 14% 18%, rgba(255, 255, 255, 0.8) 0 2px, transparent 3px),
+    radial-gradient(circle at 72% 26%, rgba(191, 226, 255, 0.7) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 62% 68%, rgba(143, 196, 255, 0.6) 0 2px, transparent 3px),
+    radial-gradient(circle at 28% 74%, rgba(255, 255, 255, 0.7) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 84% 82%, rgba(143, 196, 255, 0.6) 0 2px, transparent 3px);
+}
+
+.universe-stage::after {
+  background: radial-gradient(circle at center, transparent 0 10rem, rgba(255, 255, 255, 0.03) 18rem, transparent 30rem);
+}
+
+.universe-halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(143, 196, 255, 0.36), rgba(47, 140, 255, 0.06) 60%, transparent 72%);
+  filter: blur(10px);
+  transform: translate(-50%, -50%);
+}
+
+.orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1px solid rgba(191, 226, 255, 0.14);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.orbit-one {
+  width: 340px;
+  height: 340px;
+}
+
+.orbit-two {
+  width: 520px;
+  height: 520px;
+}
+
+.orbit-three {
+  width: 700px;
+  height: 700px;
+}
+
+.planet {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: white;
+  background: radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.68), rgba(47, 140, 255, 0.18) 34%, rgba(7, 20, 38, 0.84) 72%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 0 0 10px rgba(47, 140, 255, 0.04),
+    0 28px 50px rgba(2, 5, 13, 0.28);
+  transition: transform 320ms ease, box-shadow 320ms ease;
+}
+
+.planet:hover {
+  transform: scale(1.08) rotate(8deg);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    0 0 0 14px rgba(47, 140, 255, 0.08),
+    0 34px 64px rgba(2, 5, 13, 0.34);
+}
+
+.planet::before {
+  position: absolute;
+  inset: 16%;
+  border-radius: 50%;
+  content: "";
+  opacity: 0.55;
+}
+
+.planet-name {
+  position: relative;
+  z-index: 1;
+  padding: 0 8px;
+  text-align: center;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.planet-six {
+  left: 16%;
+  top: 22%;
+  width: 138px;
+  height: 138px;
+}
+
+.planet-six::before {
+  background: conic-gradient(from 30deg, rgba(143, 196, 255, 0.88), rgba(47, 140, 255, 0.2), rgba(191, 226, 255, 0.88));
+}
+
+.planet-chicago {
+  left: 58%;
+  top: 16%;
+  width: 172px;
+  height: 172px;
+}
+
+.planet-chicago::before {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(47, 140, 255, 0.26));
+}
+
+.planet-friends {
+  left: 30%;
+  top: 48%;
+  width: 112px;
+  height: 112px;
+}
+
+.planet-friends::before {
+  background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.9), rgba(143, 196, 255, 0.22) 62%);
+}
+
+.planet-reverse {
+  left: 70%;
+  top: 42%;
+  width: 154px;
+  height: 154px;
+}
+
+.planet-reverse::before {
+  background: linear-gradient(180deg, rgba(191, 226, 255, 0.88), rgba(22, 102, 217, 0.16));
+}
+
+.planet-rusty {
+  left: 12%;
+  top: 62%;
+  width: 126px;
+  height: 126px;
+}
+
+.planet-rusty::before {
+  background: conic-gradient(from 180deg, rgba(143, 196, 255, 0.76), rgba(7, 20, 38, 0.18), rgba(191, 226, 255, 0.76));
+}
+
+.planet-onmyoji {
+  left: 50%;
+  top: 64%;
+  width: 138px;
+  height: 138px;
+}
+
+.planet-onmyoji::before {
+  background: radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.84), rgba(143, 196, 255, 0.16) 64%);
+}
+
+.planet-night {
+  left: 78%;
+  top: 68%;
+  width: 102px;
+  height: 102px;
+}
+
+.planet-night::before {
+  background: radial-gradient(circle at 50% 38%, rgba(220, 238, 255, 0.9), rgba(47, 140, 255, 0.18) 62%);
+}
+
+.gacha-section {
+  padding: 8px 0 108px;
+}
+
+.gacha-stage {
+  position: relative;
+  min-height: 620px;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(320px, 1fr);
+  gap: 28px;
+  padding: clamp(26px, 4vw, 44px);
+  background:
+    radial-gradient(circle at 78% 22%, rgba(255, 221, 150, 0.18), transparent 16rem),
+    radial-gradient(circle at 24% 72%, rgba(143, 196, 255, 0.26), transparent 18rem),
+    linear-gradient(145deg, rgba(4, 10, 24, 0.94), rgba(11, 34, 74, 0.94) 54%, rgba(11, 63, 131, 0.8));
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.gacha-atmosphere {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.gacha-atmosphere span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(20px);
+  opacity: 0.4;
+  animation: drift 8s ease-in-out infinite alternate;
+}
+
+.gacha-atmosphere span:nth-child(1) {
+  left: 8%;
+  top: 14%;
+  width: 180px;
+  height: 180px;
+  background: rgba(143, 196, 255, 0.42);
+}
+
+.gacha-atmosphere span:nth-child(2) {
+  right: 14%;
+  top: 18%;
+  width: 220px;
+  height: 220px;
+  background: rgba(255, 227, 170, 0.32);
+  animation-delay: -2s;
+}
+
+.gacha-atmosphere span:nth-child(3) {
+  left: 30%;
+  bottom: 8%;
+  width: 280px;
+  height: 180px;
+  background: rgba(47, 140, 255, 0.24);
+  animation-delay: -3.5s;
+}
+
+.gacha-console,
+.gacha-result {
+  position: relative;
+  z-index: 1;
+}
+
+.gacha-console {
+  align-self: center;
+  padding: 18px;
+  color: white;
+}
+
+.gacha-kicker {
+  margin-bottom: 12px;
+  color: #bfe2ff;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.gacha-console h3 {
+  max-width: 400px;
+  margin-bottom: 18px;
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+}
+
+.gacha-result {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-width: 0;
+  justify-items: center;
+}
+
+.rarity-beams {
+  position: absolute;
+  inset: 8%;
+  border-radius: 32px;
+  opacity: 0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.56), transparent 18%),
+    conic-gradient(from 180deg, rgba(143, 196, 255, 0.12), rgba(255, 223, 153, 0.36), rgba(143, 196, 255, 0.12));
+  filter: blur(8px);
+  transition: opacity 360ms ease;
+}
+
+.gacha-result.is-drawing .rarity-beams,
+.gacha-result[data-rarity="gold"] .rarity-beams {
+  opacity: 1;
+}
+
+.gacha-card-shell {
+  width: 320px;
+  max-width: min(100%, 320px);
+  justify-self: center;
+  perspective: 1200px;
+}
+
+.gacha-card-inner {
+  position: relative;
+  width: 100%;
+  height: 470px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 920ms cubic-bezier(.16,1,.3,1);
+}
+
+.gacha-result.is-flipped .gacha-card-inner {
+  transform: rotateY(180deg) scale(1.02);
+}
+
+.gacha-card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 28px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.gacha-card-back {
+  display: grid;
+  place-items: center;
+  transform: rotateY(0deg);
+  color: #dceeff;
+  background:
+    linear-gradient(145deg, rgba(6, 20, 43, 0.96), rgba(22, 102, 217, 0.7)),
+    radial-gradient(circle at 50% 26%, rgba(255, 255, 255, 0.16), transparent 16rem);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2), 0 28px 60px rgba(2, 5, 13, 0.34);
+  letter-spacing: 0.28em;
+  font-weight: 900;
+}
+
+.gacha-card-front {
+  padding: 28px;
+  display: grid;
+  align-content: center;
+  gap: 12px;
+  color: white;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18), 0 28px 60px rgba(2, 5, 13, 0.34);
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.22), transparent 12rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 22%),
+    linear-gradient(145deg, rgba(9, 24, 52, 0.98), rgba(11, 63, 131, 0.88));
+  transform: rotateY(180deg);
+}
+
+.gacha-result[data-rarity="gold"] .gacha-card-front {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 241, 197, 0.32), transparent 12rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 22%),
+    linear-gradient(145deg, rgba(37, 32, 12, 0.98), rgba(125, 90, 20, 0.84), rgba(11, 63, 131, 0.74));
+}
+
+.gacha-rarity {
+  margin: 0;
+  color: #dceeff;
+  letter-spacing: 0.18em;
+  font-weight: 900;
+}
+
+.gacha-title {
+  margin-bottom: 2px;
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+}
+
+.gacha-body,
+.gacha-signature {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.78;
+}
+
+.gacha-signature {
+  margin-top: 8px;
+  color: #bfe2ff;
+}
+
+.letter-section {
+  padding: 10px 0 120px;
+}
+
+.letter-panel {
+  min-height: 560px;
+  padding: clamp(34px, 6vw, 84px);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 40px;
+  background:
+    radial-gradient(circle at 24% 18%, rgba(191, 226, 255, 0.28), transparent 18rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.48));
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(26px) saturate(1.34);
+}
+
+.letter-lines {
+  max-width: 760px;
+  display: grid;
+  gap: 30px;
+  padding-top: 18px;
+}
+
+.letter-line {
+  margin: 0;
+  opacity: 0;
+  transform: translateY(26px);
+  color: #18324f;
+  font-size: clamp(1.28rem, 2.2vw, 2rem);
+  line-height: 1.9;
+  transition: opacity 800ms ease, transform 800ms cubic-bezier(.16,1,.3,1);
+}
+
+.letter-line.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.overlay-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 950;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(2, 5, 13, 0.52);
+  backdrop-filter: blur(18px);
+}
+
+.overlay-layer.is-open {
+  display: flex;
+}
+
+body.overlay-open {
+  overflow: hidden;
+}
+
+.photo-modal,
+.fandom-modal {
+  position: relative;
+  width: min(1080px, 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 34px;
+  display: grid;
+  gap: 22px;
+  color: white;
+  background:
+    linear-gradient(145deg, rgba(7, 20, 38, 0.96), rgba(11, 63, 131, 0.72)),
+    radial-gradient(circle at 18% 18%, rgba(191, 226, 255, 0.18), transparent 16rem);
+  box-shadow: 0 34px 100px rgba(2, 5, 13, 0.38);
+  opacity: 0;
+  transform: translateY(24px) scale(0.96);
+  transition: opacity 320ms ease, transform 320ms ease;
+}
+
+.photo-modal.is-open,
+.fandom-modal.is-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.photo-modal {
+  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.78fr);
+  padding: 26px;
+}
+
+.fandom-modal {
+  max-width: 760px;
+  padding: 34px;
+}
+
+.overlay-close {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  color: white;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 3;
+}
+
+.photo-modal-media {
+  min-height: 560px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.photo-modal-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.photo-modal-note {
+  align-self: center;
+  padding: 28px 8px 10px;
+}
+
+.photo-modal-meta,
+.fandom-label {
+  margin-bottom: 12px;
+  color: #bfe2ff;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.photo-modal-text {
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.08rem;
+  line-height: 1.9;
+}
+
+.fandom-modal-shell {
+  min-height: 380px;
+  border-radius: 24px;
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px);
+}
+
+.fandom-modal[data-theme="six"] .fandom-modal-shell {
+  background: linear-gradient(145deg, rgba(22, 102, 217, 0.18), rgba(255, 255, 255, 0.08));
+}
+
+.fandom-modal[data-theme="chicago"] .fandom-modal-shell {
+  background: linear-gradient(145deg, rgba(12, 24, 54, 0.44), rgba(143, 196, 255, 0.1));
+}
+
+.fandom-modal[data-theme="friends"] .fandom-modal-shell {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(143, 196, 255, 0.12));
+}
+
+.fandom-modal[data-theme="reverse"] .fandom-modal-shell {
+  background: linear-gradient(145deg, rgba(47, 140, 255, 0.16), rgba(220, 238, 255, 0.08));
+}
+
+.fandom-modal[data-theme="rusty"] .fandom-modal-shell {
+  background: linear-gradient(145deg, rgba(7, 20, 38, 0.32), rgba(143, 196, 255, 0.1));
+}
+
+.fandom-modal[data-theme="onmyoji"] .fandom-modal-shell {
+  background: linear-gradient(145deg, rgba(191, 226, 255, 0.12), rgba(47, 140, 255, 0.1));
+}
+
+.fandom-modal[data-theme="night"] .fandom-modal-shell {
+  background: linear-gradient(145deg, rgba(10, 21, 45, 0.42), rgba(143, 196, 255, 0.08));
+}
+
+.fandom-title {
+  margin-bottom: 18px;
+}
+
+.fandom-wishes {
+  display: grid;
+  gap: 16px;
+}
+
+.fandom-wishes p {
+  margin: 0;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.05);
+  line-height: 1.8;
+}
+
 .intro-strip,
 .interactive-stage,
 .finale,
@@ -1679,9 +2489,8 @@ body.cursor-active .cursor-ring {
   }
 
   .hero-grid,
-  .intro-strip,
-  .chapter,
-  .interactive-stage {
+  .photo-modal,
+  .gacha-stage {
     grid-template-columns: 1fr;
   }
 
@@ -1690,10 +2499,17 @@ body.cursor-active .cursor-ring {
     border-radius: 26px;
   }
 
-  .intro-strip,
-  .interactive-stage,
+  .memory-card {
+    min-height: 480px;
+  }
+
+  .photo-wall,
+  .interest-universe,
+  .gacha-section,
+  .letter-section,
   .finale,
-  .chapter-wall {
+  .photo-modal,
+  .fandom-modal {
     width: min(100% - 32px, 1180px);
   }
 
@@ -1701,17 +2517,67 @@ body.cursor-active .cursor-ring {
     width: min(100% - 32px, 1180px);
   }
 
-  .chapter {
-    position: relative;
-    top: auto;
-    min-height: auto;
+  .photo-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .chapter-visual {
-    min-height: 220px;
+  .memory-polaroid:nth-child(1),
+  .memory-polaroid:nth-child(2),
+  .memory-polaroid:nth-child(3),
+  .memory-polaroid:nth-child(4) {
+    grid-column: span 1;
+    margin-top: 0;
   }
 
-  .interactive-stage {
+  .universe-stage {
+    min-height: 920px;
+  }
+
+  .planet-six {
+    left: 8%;
+    top: 16%;
+  }
+
+  .planet-chicago {
+    left: 56%;
+    top: 12%;
+  }
+
+  .planet-friends {
+    left: 20%;
+    top: 42%;
+  }
+
+  .planet-reverse {
+    left: 58%;
+    top: 40%;
+  }
+
+  .planet-rusty {
+    left: 10%;
+    top: 66%;
+  }
+
+  .planet-onmyoji {
+    left: 42%;
+    top: 66%;
+  }
+
+  .planet-night {
+    left: 72%;
+    top: 76%;
+  }
+
+  .photo-modal-media {
+    min-height: 380px;
+  }
+
+  .fandom-modal,
+  .photo-modal {
+    padding: 22px;
+  }
+
+  .gacha-stage {
     min-height: auto;
   }
 }
@@ -1721,33 +2587,79 @@ body.cursor-active .cursor-ring {
     font-size: clamp(3rem, 16vw, 4.6rem);
   }
 
-  .hero-actions,
-  .scene-tabs {
+  .hero-actions {
     align-items: stretch;
     flex-direction: column;
   }
 
   .primary-action,
-  .secondary-action,
-  .scene-tab {
+  .secondary-action {
     width: 100%;
   }
 
-  .scene-display {
-    min-height: 640px;
+  .photo-board {
+    grid-template-columns: 1fr;
+    padding: 22px;
   }
 
-  .photo-window {
-    width: min(82%, 560px);
+  .memory-polaroid {
+    transform: none;
   }
 
-  .saturn-stage {
-    width: min(100% - 32px, 1180px);
+  .universe-stage {
+    min-height: 1100px;
   }
 
-  .scene-copy-panel {
-    left: 16px;
-    right: 16px;
+  .planet {
+    transform: scale(0.92);
+  }
+
+  .planet-six {
+    left: 4%;
+    top: 12%;
+  }
+
+  .planet-chicago {
+    left: 46%;
+    top: 18%;
+  }
+
+  .planet-friends {
+    left: 14%;
+    top: 38%;
+  }
+
+  .planet-reverse {
+    left: 48%;
+    top: 45%;
+  }
+
+  .planet-rusty {
+    left: 6%;
+    top: 64%;
+  }
+
+  .planet-onmyoji {
+    left: 34%;
+    top: 72%;
+  }
+
+  .planet-night {
+    left: 64%;
+    top: 84%;
+  }
+
+  .photo-modal,
+  .fandom-modal {
+    width: min(100% - 24px, 1180px);
+  }
+
+  .photo-modal-media {
+    min-height: 280px;
+  }
+
+  .overlay-layer {
+    padding: 12px;
   }
 }
 

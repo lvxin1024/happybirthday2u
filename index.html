@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>生日快乐 | 奇想剧场</title>
+    <title>Happy birthday | A Universe for you</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -24,16 +24,16 @@
     <video id="shared_camera_video" autoplay playsinline muted aria-hidden="true"></video>
 
     <header class="topbar">
-      <span class="brand">Blue Birthday Theater</span>
+      <span class="brand">Birthday Museum</span>
       <nav aria-label="页面导航">
         <a href="#top" class="magnetic">开场</a>
-        <a href="#chapters" class="magnetic">卡片长卷</a>
-        <a href="#stage" class="magnetic">舞台切换</a>
-        <a href="#finale" class="magnetic">终章</a>
+        <a href="#photos" class="magnetic">照片墙</a>
+        <a href="#universe" class="magnetic">兴趣宇宙</a>
+        <a href="#gacha" class="magnetic">抽卡</a>
+        <a href="#letter" class="magnetic">来信</a>
         <a href="#saturn-stage" class="magnetic">星云</a>
       </nav>
     </header>
-
 
     <main>
       <section class="countdown-gate" id="gate" aria-label="生日倒计时">
@@ -62,28 +62,22 @@
       <section class="hero" id="top">
         <div class="aurora aurora-one"></div>
         <div class="aurora aurora-two"></div>
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow">蓝色生日限定</p>
-            <h1>生日快乐，今天为你开一场奇想剧场。</h1>
-            <p class="hero-text">
-              这是一张长页面生日卡：蓝色玻璃、舞台光束、雨声手提箱、咖啡沙发、爵士剪影、符咒风铃和夜幕迷雾会一路展开。
-            </p>
+        <div class="hero-grid hero-grid-simplified">
+          <div class="hero-copy hero-copy-compact reveal">
+            <p class="eyebrow">只属于你</p>
+            <h1>今天，<br />整个宇宙都知道<br />是你的生日。</h1>
             <div class="hero-actions">
-              <button class="primary-action magnetic" type="button" data-burst="big">
-                点亮蓝色祝福
-              </button>
-              <a class="secondary-action magnetic" href="#chapters">开始巡游</a>
+              <a class="primary-action magnetic" href="#photos" data-burst="big">Begin</a>
             </div>
           </div>
 
-          <div class="stage-card" aria-label="蓝色生日蛋糕舞台">
+          <div class="stage-card memory-card reveal" aria-label="蓝色生日蛋糕舞台">
             <div class="spotlight"></div>
             <div class="floating-icons" aria-hidden="true">
-              <span>♛</span>
-              <span>☕</span>
-              <span>☂</span>
               <span>✦</span>
+              <span>☾</span>
+              <span>☁</span>
+              <span>☼</span>
               <span>☯</span>
             </div>
             <div class="cake">
@@ -95,158 +89,141 @@
               </div>
               <div class="plate"></div>
             </div>
+            <p class="memory-caption">今晚的开场白，不需要很长。</p>
           </div>
         </div>
       </section>
 
-      <section class="intro-strip reveal">
-        <div>
-          <p class="eyebrow">页面设定</p>
-          <h2>把喜欢的世界，折成一条蓝色生日长卷。</h2>
-        </div>
-        <p>
-          每个 IP 都只取“可感知的氛围符号”：女王麦克风、爵士霓虹、公寓猫眼、雨中手提箱、方块谜题、阴阳符咒、夜幕迷雾。点击卡片会触发对应的小彩蛋。
-        </p>
-      </section>
-
-      <section class="chapter-wall" id="chapters" aria-label="翻页卡片长卷">
-        <article class="chapter six-theme reveal" data-scene="six">
-          <div>
-            <p class="chapter-kicker">Chapter 01 / SIX</p>
-            <h3>聚光灯落在你身上，今晚你就是主角。</h3>
-            <p>这一页写给舞台上的你：愿你抬头就有灯，开口就有回响，勇气和温柔都能被世界认真看见。</p>
-          </div>
-          <div class="chapter-visual" aria-hidden="true">
-            <span class="crown">♛</span>
-            <span class="mic"></span>
-            <span class="beam"></span>
-          </div>
-        </article>
-
-        <article class="chapter chicago-theme reveal" data-scene="chicago">
-          <div>
-            <p class="chapter-kicker">Chapter 02 / Chicago</p>
-            <h3>爵士鼓点一响，普通一天也能有漂亮节奏。</h3>
-            <p>愿你在忙碌里仍然有自己的步点，不慌不忙地穿过喧闹，把每一次出场都走成属于你的高光时刻。</p>
-          </div>
-          <div class="chapter-visual" aria-hidden="true">
-            <span class="jazz-hat"></span>
-            <span class="chair"></span>
-            <span class="marquee">JAZZ</span>
-          </div>
-        </article>
-
-        <article class="chapter friends-theme reveal" data-scene="friends">
-          <div>
-            <p class="chapter-kicker">Chapter 03 / Friends</p>
-            <h3>沙发是留给懂你的人，咖啡是留给慢慢聊的夜。</h3>
-            <p>愿你永远有一个能坐下来的角落，有几个不用解释就明白你情绪的人，和一份说笑就会亮起来的日常。</p>
-          </div>
-          <div class="chapter-visual" aria-hidden="true">
-            <span class="sofa"></span>
-            <span class="coffee">☕</span>
-            <span class="frame"></span>
-          </div>
-        </article>
-
-        <article class="chapter reverse-theme reveal" data-scene="reverse">
-          <div>
-            <p class="chapter-kicker">Chapter 04 / Reverse 1999</p>
-            <h3>雨落进手提箱，时间替你把温柔收好。</h3>
-            <p>愿你从过去获得答案，也把今天的快乐完整保存。就算偶尔淋雨，也总能在下一站等到天光。</p>
-          </div>
-          <div class="chapter-visual" aria-hidden="true">
-            <span class="suitcase"></span>
-            <span class="rain"></span>
-            <span class="clock">1999</span>
-          </div>
-        </article>
-
-        <article class="chapter rusty-theme reveal" data-scene="rusty">
-          <div>
-            <p class="chapter-kicker">Chapter 05 / Rusty Lake</p>
-            <h3>谜题不会消失，但你总能找到钥匙。</h3>
-            <p>愿你遇到复杂的事也不慌张，线索会一点点浮现。新一岁里，每一道难题最后都能变成通关的纪念。</p>
-          </div>
-          <div class="chapter-visual" aria-hidden="true">
-            <span class="cube"></span>
-            <span class="lake"></span>
-            <span class="key">🗝</span>
-          </div>
-        </article>
-
-        <article class="chapter onmyoji-theme reveal" data-scene="onmyoji">
-          <div>
-            <p class="chapter-kicker">Chapter 06 / Onmyoji</p>
-            <h3>符咒轻响，坏天气会被拦在门外。</h3>
-            <p>愿你被偏爱，也有守护自己的能力。每当夜色变深，你都能召唤出一束只属于你的稳定蓝光。</p>
-          </div>
-          <div class="chapter-visual" aria-hidden="true">
-            <span class="seal">符</span>
-            <span class="yin-yang">☯</span>
-            <span class="bell"></span>
-          </div>
-        </article>
-
-        <article class="chapter night-theme reveal" data-scene="night">
-          <div>
-            <p class="chapter-kicker">Chapter 07 / Night</p>
-            <h3>雾散的时候，路灯会准时亮起。</h3>
-            <p>愿你穿过每一段不确定，都能被微光稳稳接住。走到这里，下一页就是你今晚的星云奇迹。</p>
-          </div>
-          <div class="chapter-visual" aria-hidden="true">
-            <span class="mist"></span>
-            <span class="moon"></span>
-            <span class="night-key"></span>
-          </div>
-        </article>
-      </section>
-
-      
-      <section class="interactive-stage reveal" id="stage">
-        <div class="stage-copy">
-          <p class="eyebrow">可切换舞台</p>
-          <h2>点一个灵感，换一幕生日场景。</h2>
-          <p>按钮会切换舞台文案和视觉符号。鼠标、点击纸屑和祝福词也会跟着蓝色主题响应。</p>
-          <div class="scene-tabs" role="tablist" aria-label="灵感舞台切换">
-            <button class="scene-tab active" type="button" data-target="six">SIX</button>
-            <button class="scene-tab" type="button" data-target="chicago">芝加哥</button>
-            <button class="scene-tab" type="button" data-target="friends">老友记</button>
-            <button class="scene-tab" type="button" data-target="reverse">1999</button>
-            <button class="scene-tab" type="button" data-target="rusty">锈湖</button>
-            <button class="scene-tab" type="button" data-target="onmyoji">阴阳师</button>
-            <button class="scene-tab" type="button" data-target="night">夜幕</button>
-          </div>
+      <section class="photo-wall reveal" id="photos" aria-label="照片墙">
+        <div class="section-heading">
+          <p class="eyebrow">照片墙</p>
+          <h2>把和你有关的瞬间，钉成一面会发光的记忆墙。</h2>
         </div>
 
-        <div class="scene-display" data-active-scene="six">
-          <div class="scene-orb"></div>
-          <div class="theater-set" aria-label="可替换照片舞台窗口">
-            <div class="curtain curtain-left"></div>
-            <div class="curtain curtain-right"></div>
-            <div class="stage-lights" aria-hidden="true">
-              <span></span>
-              <span></span>
-              <span></span>
+        <div class="photo-board">
+          <article class="memory-polaroid tilt-left magnetic" data-photo-id="0">
+            <span class="photo-tape tape-left" aria-hidden="true"></span>
+            <span class="photo-sticker sticker-star" aria-hidden="true">✦</span>
+            <img src="./image.png" alt="晓彤姐姐的照片 1" />
+            <div class="polaroid-meta">
+              <p class="photo-date">2025.11.02</p>
+              <p class="photo-location">杭州</p>
             </div>
-            <figure class="photo-window">
-              <img src="./assets/stage-photo-placeholder.svg" alt="可替换的生日照片" />
-              <figcaption>把图片放到 assets 目录后，替换这里的 img src。</figcaption>
-            </figure>
-            <div class="stage-floor" aria-hidden="true"></div>
-          </div>
-          <div class="scene-copy-panel">
-            <p class="scene-label">音乐剧 SIX</p>
-            <h3 class="scene-title">六位女王把聚光灯递给今天的你。</h3>
-            <p class="scene-body">愿你拥有舞台中央的笃定，也拥有谢幕以后被朋友拥抱的松弛。</p>
-            <div class="scene-symbols" aria-hidden="true">
-              <span>♛</span>
-              <span>♛</span>
-              <span>♛</span>
-              <span>♛</span>
-              <span>♛</span>
-              <span>♛</span>
+          </article>
+
+          <article class="memory-polaroid tilt-right magnetic" data-photo-id="1">
+            <span class="photo-tape tape-center" aria-hidden="true"></span>
+            <span class="photo-sticker sticker-heart" aria-hidden="true">☁</span>
+            <img src="./image.png" alt="晓彤姐姐的照片 2" />
+            <div class="polaroid-meta">
+              <p class="photo-date">2026.01.14</p>
+              <p class="photo-location">上海</p>
             </div>
+          </article>
+
+          <article class="memory-polaroid lift-up magnetic" data-photo-id="2">
+            <span class="photo-tape tape-right" aria-hidden="true"></span>
+            <span class="photo-sticker sticker-note" aria-hidden="true">♪</span>
+            <img src="./image.png" alt="晓彤姐姐的照片 3" />
+            <div class="polaroid-meta">
+              <p class="photo-date">2026.03.28</p>
+              <p class="photo-location">苏州</p>
+            </div>
+          </article>
+
+          <article class="memory-polaroid tilt-left wide-frame magnetic" data-photo-id="3">
+            <span class="photo-tape tape-double" aria-hidden="true"></span>
+            <span class="photo-sticker sticker-moon" aria-hidden="true">☾</span>
+            <img src="./image.png" alt="晓彤姐姐的照片 4" />
+            <div class="polaroid-meta">
+              <p class="photo-date">2026.05.09</p>
+              <p class="photo-location">南京</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="interest-universe reveal" id="universe" aria-label="兴趣宇宙">
+        <div class="section-heading narrow-heading">
+          <p class="eyebrow">兴趣宇宙</p>
+          <h2>你喜欢的世界，今晚都绕着你发光。</h2>
+        </div>
+
+        <div class="universe-stage">
+          <div class="universe-halo"></div>
+          <button class="planet planet-six magnetic" type="button" data-fandom="six">
+            <span class="planet-name">SIX</span>
+          </button>
+          <button class="planet planet-chicago magnetic" type="button" data-fandom="chicago">
+            <span class="planet-name">Chicago</span>
+          </button>
+          <button class="planet planet-friends magnetic" type="button" data-fandom="friends">
+            <span class="planet-name">Friends</span>
+          </button>
+          <button class="planet planet-reverse magnetic" type="button" data-fandom="reverse">
+            <span class="planet-name">Reverse:1999</span>
+          </button>
+          <button class="planet planet-rusty magnetic" type="button" data-fandom="rusty">
+            <span class="planet-name">Rusty Lake</span>
+          </button>
+          <button class="planet planet-onmyoji magnetic" type="button" data-fandom="onmyoji">
+            <span class="planet-name">阴阳师</span>
+          </button>
+          <button class="planet planet-night magnetic" type="button" data-fandom="night">
+            <span class="planet-name">夜幕</span>
+          </button>
+          <div class="orbit orbit-one" aria-hidden="true"></div>
+          <div class="orbit orbit-two" aria-hidden="true"></div>
+          <div class="orbit orbit-three" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="gacha-section reveal" id="gacha" aria-label="重返未来 1999 生日抽卡">
+        <div class="section-heading narrow-heading">
+          <p class="eyebrow">重返未来：1999</p>
+          <h2>今晚不抽角色，抽一张只属于生日的好运。</h2>
+        </div>
+
+        <div class="gacha-stage">
+          <div class="gacha-atmosphere" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="gacha-console">
+            <p class="gacha-kicker">生日征集卡池</p>
+            <h3>手提箱已经打开，下一张会是什么祝福？</h3>
+            <button class="primary-action magnetic gacha-button" type="button">抽一张生日祝福</button>
+          </div>
+
+          <div class="gacha-result" data-rarity="idle">
+            <div class="rarity-beams" aria-hidden="true"></div>
+            <div class="gacha-card-shell">
+              <div class="gacha-card-inner">
+                <div class="gacha-card-face gacha-card-back">
+                  <span>VERTIN ARCHIVE</span>
+                </div>
+                <div class="gacha-card-face gacha-card-front">
+                  <p class="gacha-rarity">等待抽取</p>
+                  <h3 class="gacha-title">蓝色好运待命中</h3>
+                  <p class="gacha-body">点一下按钮，看看今晚会落下哪张生日增益。</p>
+                  <p class="gacha-signature">来自手提箱的保留位</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="letter-section reveal" id="letter" aria-label="生日来信">
+        <div class="letter-panel">
+          <p class="eyebrow">来信</p>
+          <div class="letter-lines" aria-live="polite">
+            <p class="letter-line">我花了很久，才把这一页页慢慢做好。</p>
+            <p class="letter-line">因为我想送你的，不只是四个字的生日快乐。</p>
+            <p class="letter-line">我想把你喜欢的宇宙、你的照片、还有一些很轻的心事，都放进来。</p>
+            <p class="letter-line">这样你点开的时候，就会知道这一整晚都是为你准备的。</p>
+            <p class="letter-line">也希望以后很多很多年，我都还能继续陪你过生日。</p>
           </div>
         </div>
       </section>
@@ -254,9 +231,9 @@
       <section class="finale reveal" id="finale">
         <div class="finale-panel">
           <p class="eyebrow">终章</p>
-          <h2>愿新一岁，像蓝色清晨一样明亮。</h2>
+          <h2>再往前走一点，星云会替我把最后一句话说完。</h2>
           <p>
-            愿你在喜欢的故事里得到勇气，在现实的一天里得到好运。点击任意地方，会掉落一颗蓝色祝福；按
+            点击任意地方，会掉落一颗蓝色祝福；按
             <kbd>B</kbd>，会触发一次大彩蛋。
           </p>
           <button class="primary-action magnetic" type="button" data-burst="big">再放一次生日烟花</button>
@@ -265,6 +242,29 @@
 
       <section class="saturn-stage" id="saturn-stage" aria-label="土星沉浸展示"></section>
     </main>
+
+    <div class="overlay-layer" aria-hidden="true">
+      <div class="photo-modal" role="dialog" aria-modal="true" aria-labelledby="photo-modal-title" hidden>
+        <button class="overlay-close magnetic" type="button" aria-label="关闭照片弹窗">关闭</button>
+        <div class="photo-modal-media">
+          <img class="photo-modal-image" src="./image.png" alt="放大的生日照片" />
+        </div>
+        <div class="photo-modal-note">
+          <p class="photo-modal-meta"></p>
+          <h3 id="photo-modal-title">这一张我记得很清楚。</h3>
+          <p class="photo-modal-text"></p>
+        </div>
+      </div>
+
+      <div class="fandom-modal" role="dialog" aria-modal="true" aria-labelledby="fandom-modal-title" hidden>
+        <button class="overlay-close magnetic" type="button" aria-label="关闭祝福弹窗">关闭</button>
+        <div class="fandom-modal-shell">
+          <p class="fandom-label"></p>
+          <h3 id="fandom-modal-title" class="fandom-title"></h3>
+          <div class="fandom-wishes"></div>
+        </div>
+      </div>
+    </div>
 
     <div class="toast" role="status" aria-live="polite"></div>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
