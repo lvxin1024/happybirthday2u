@@ -449,7 +449,7 @@ body.is-unlocking .birthday-reveal {
 
 .eyebrow {
   margin: 0 0 16px;
-  color: var(--blue-650);
+  color: white;
   font-size: 0.82rem;
   font-weight: 800;
   letter-spacing: 0.14em;
