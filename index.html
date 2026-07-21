@@ -64,32 +64,33 @@
         <div class="aurora aurora-two"></div>
         <div class="hero-grid hero-grid-simplified">
           <div class="hero-copy hero-copy-compact reveal">
-            <p class="eyebrow">只属于你</p>
-            <h1>今天，<br />整个宇宙都知道<br />是你的生日。</h1>
-            <div class="hero-actions">
-              <a class="primary-action magnetic" href="#photos" data-burst="big">Begin</a>
+            <p class="eyebrow">开始啦</p>
+            <h1>许个愿望吧</br>整个宇宙都会为你保密</h1>
+            <p class="hero-unlock-hint" id="hero-unlock-hint">长按右侧蛋糕上的蜡烛吹灭它，之后才会开启今晚的入口。</p>
+            <div class="hero-actions hero-actions-locked" aria-live="polite">
+              <a class="primary-action magnetic hero-begin-button" href="#photos" data-burst="big" aria-hidden="true" tabindex="-1">Begin</a>
             </div>
           </div>
 
           <div class="stage-card memory-card reveal" aria-label="蓝色生日蛋糕舞台">
             <div class="spotlight"></div>
             <div class="floating-icons" aria-hidden="true">
-              <span>✦</span>
-              <span>☾</span>
-              <span>☁</span>
-              <span>☼</span>
-              <span>☯</span>
+              <span>平安喜乐</span>
+              <span>万事胜意</span>
+              <span>绩点全满</span>
+              <span>亲友顺遂</span>
+              <span>ip不塌房</span>
             </div>
-            <div class="cake">
+            <button class="cake cake-interactive" type="button" aria-describedby="hero-unlock-hint" aria-label="长按吹灭生日蜡烛，解锁 Begin 按钮">
               <div class="candle"><span class="flame"></span></div>
               <div class="icing"></div>
               <div class="cake-body">
                 <div class="shine"></div>
-                <p>生日快乐</p>
+                <p>cxt生日快乐！</p>
               </div>
               <div class="plate"></div>
-            </div>
-            <p class="memory-caption">今晚的开场白，不需要很长。</p>
+            </button>
+            <p class="cake-hold-tip" aria-live="polite">按住蜡烛约 1.2 秒，点亮今晚的开场。</p>
           </div>
         </div>
       </section>
@@ -262,6 +263,9 @@
           <p class="fandom-label"></p>
           <h3 id="fandom-modal-title" class="fandom-title"></h3>
           <div class="fandom-wishes"></div>
+          <div class="fandom-media">
+            <img class="fandom-image" src="./image.png" alt="兴趣宇宙插图" loading="lazy" />
+          </div>
         </div>
       </div>
     </div>
