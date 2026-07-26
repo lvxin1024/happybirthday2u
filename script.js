@@ -35,7 +35,7 @@ const fandomMessages = {
     label: "SIX",
     title: "Catherine Parr",
     theme: "six",
-    image: "./image copy.png",
+    image: "./assets/image copy.png",
     imageAlt: "SIX 主题照片",
     wishes: [
       "My dear, never forget that your story belongs to you.",
@@ -47,9 +47,9 @@ const fandomMessages = {
     label: "重返未来：1999",
     title: "槲寄生",
     theme: "reverse",
-    video: "./槲寄生.webm",
+    video: "./assets/槲寄生.webm",
     videoAlphaSplit: true,
-    image: "./忘了.jpg",
+    image: "./assets/忘了.jpg",
     imageAlt: "重返未来 1999 主题照片",
     wishes: [
       "Every ring within a tree marks a year that has quietly passed",
@@ -61,8 +61,8 @@ const fandomMessages = {
     label: "Rusty Lake 档案",
     title: "兔子先生来送生日祝福啦",
     theme: "rusty",
-    image: ["./兔子先生送祝福.png",
-      "./兔子庆祝.png"
+    image: ["./assets/兔子先生送祝福.png",
+      "./assets/兔子庆祝.png"
     ],
     imageAlt: ["Rusty Lake 主题照片1",
       "Rusty Lake 主题照片2"
@@ -75,7 +75,7 @@ const fandomMessages = {
     label: "阴阳师守护",
     title: "不知火",
     theme: "onmyoji",
-    image: "./image.png",
+    image: "./assets/image.png",
     imageAlt: "阴阳师主题照片",
     wishes: [
       "夜色漫长，星河璀璨。但今夜，有一簇火焰，比群星更加耀眼。",
@@ -87,7 +87,7 @@ const fandomMessages = {
     label: "夜幕之下",
     title: "ng",
     theme: "night",
-    video: "./ng.mp4",
+    video: "./assets/ng.mp4",
     imageAlt: "夜幕主题插图",
     wishes: [
       "愿你穿过每一段夜色时，都知道前面有人替你留灯。",
@@ -977,7 +977,7 @@ function openPhotoModal(photoId, sourceCard) {
   const cardLocation = sourceCard?.querySelector(".photo-location")?.textContent?.trim();
   const metaText = [cardDate || memory?.date, cardLocation || memory?.location].filter(Boolean).join(" · ");
 
-  photoModalImage.src = image?.getAttribute("src") || "./image.png";
+  photoModalImage.src = image?.getAttribute("src") || "./assets/image.png";
   photoModalImage.alt = image?.getAttribute("alt") || "放大的生日照片";
   photoModalMeta.textContent = metaText;
   photoModalTitle.textContent = memory?.title || "这一张我记得很清楚。";
@@ -1000,7 +1000,7 @@ function openFandomModal(key, sourcePlanet) {
   if (fandomMedia) {
     if (data.video) {
       const splitClass = data.videoAlphaSplit ? " fandom-video-split" : "";
-      const fallbackImage = Array.isArray(data.image) ? data.image[0] : (data.image || "./image.png");
+      const fallbackImage = Array.isArray(data.image) ? data.image[0] : (data.image || "./assets/image.png");
       const fallbackAlt = Array.isArray(data.imageAlt) ? data.imageAlt[0] : (data.imageAlt || `${data.label} 图片`);
       fandomMedia.innerHTML = `<video class="fandom-video${splitClass}" src="${data.video}" autoplay loop muted playsinline></video>`;
       const video = fandomMedia.querySelector(".fandom-video");
@@ -1008,7 +1008,7 @@ function openFandomModal(key, sourcePlanet) {
         fandomMedia.innerHTML = `<img class="fandom-image" src="${fallbackImage}" alt="${fallbackAlt}" loading="lazy" />`;
       }, { once: true });
     } else {
-      const images = Array.isArray(data.image) ? data.image : [data.image || "./image.png"];
+      const images = Array.isArray(data.image) ? data.image : [data.image || "./assets/image.png"];
       const alts = Array.isArray(data.imageAlt) ? data.imageAlt : [data.imageAlt || `${data.label} 图片`];
       fandomMedia.innerHTML = images
         .map((src, i) => `<img class="fandom-image" src="${src}" alt="${alts[i] ?? alts[0]}" loading="lazy" />`)
