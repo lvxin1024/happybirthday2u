@@ -33,51 +33,28 @@ const photoMemories = [
 const fandomMessages = {
   six: {
     label: "SIX",
-    title: "今晚，王冠归你。",
+    title: "Catherine Parr",
     theme: "six",
-    image: "./生日.jpg",
+    image: "./image copy.png",
     imageAlt: "SIX 主题照片",
     wishes: [
-      "女王们一致决定，今天舞台中央的名字只能是你。",
-      "把聚光灯、掌声和最亮的那一束蓝色，都交给寿星本人。",
-      "今晚不需要争夺主角位，因为你一出现，结局就已经写好了。"
-    ]
-  },
-  chicago: {
-    label: "Chicago 夜场",
-    title: "你的生日，应该有最漂亮的节拍。",
-    theme: "chicago",
-    image: "./ktv.jpg",
-    imageAlt: "Chicago 主题照片",
-    wishes: [
-      "愿你每一次出场都踩在自己的鼓点上，漂亮又从容。",
-      "今晚的灯牌为你亮起，连运气都该带一点爵士感。",
-      "愿普通的一天，只要落到你手里，也会变得很有戏。"
-    ]
-  },
-  friends: {
-    label: "Friends 留位中",
-    title: "我们一直会给你留个位置。",
-    theme: "friends",
-    image: "./游乐园.jpg",
-    imageAlt: "Friends 主题照片",
-    wishes: [
-      "不管世界多忙，你都应该拥有随时能坐下来的那张沙发。",
-      "愿你每次回头，都有人说，来吧，这里一直给你留着。",
-      "生日快乐，愿你的开心永远有人接得住。"
+      "My dear, never forget that your story belongs to you.",
+      "The world may try to tell you who you should be, but only you can decide who you will become.",
+      "May this new chapter bring you courage, joy, and the freedom to shine as yourself. Happy Birthday."
     ]
   },
   reverse: {
     label: "重返未来：1999",
-    title: "新的一岁，愿幸运与你同行。",
+    title: "槲寄生",
     theme: "reverse",
     video: "./槲寄生.webm",
+    videoAlphaSplit: true,
     image: "./忘了.jpg",
     imageAlt: "重返未来 1999 主题照片",
     wishes: [
-      "新的时代已经开场，愿好运总在你身边同行。",
-      "若时间会收藏礼物，那今天一定会被标上最亮的蓝色。",
-      "愿所有正确的相遇，都在这一年比你先一步抵达。"
+      "Every ring within a tree marks a year that has quietly passed",
+      "May yours be filled with gentle light, steady roots, and blossoms yet unseen",
+      "Happy Birthday."
     ]
   },
   rusty: {
@@ -96,26 +73,26 @@ const fandomMessages = {
   },
   onmyoji: {
     label: "阴阳师守护",
-    title: "今夜的结界，只为你发光。",
+    title: "不知火",
     theme: "onmyoji",
-    image: "./与龙.jpg",
+    image: "./image.png",
     imageAlt: "阴阳师主题照片",
     wishes: [
-      "愿所有坏天气都被拦在门外，你只需要安心收下喜欢。",
-      "今夜会有温柔的式神替你守灯，把心愿一路送到天亮。",
-      "愿你在每个深夜，都还有召唤光亮的能力。"
+      "夜色漫长，星河璀璨。但今夜，有一簇火焰，比群星更加耀眼。",
+      "愿你永远追随自己的心意起舞，愿你的旅途之中，始终有光相伴。",
+      "生日快乐。"
     ]
   },
   night: {
-    label: "夜幕微光",
-    title: "雾散的时候，灯会为你先亮。",
+    label: "夜幕之下",
+    title: "ng",
     theme: "night",
-    image: "./image.png",
+    video: "./ng.mp4",
     imageAlt: "夜幕主题插图",
     wishes: [
       "愿你穿过每一段夜色时，都知道前面有人替你留灯。",
       "今晚的月光不负责照别人，只负责让你生日快乐。",
-      "如果偶尔会迷路，也愿你总能被微光稳稳接住。"
+      "（其实因为此人跳活动剧情且还没抽到他，所以不会语c）"
     ]
   }
 };
@@ -1013,7 +990,14 @@ function openFandomModal(key, sourcePlanet) {
   fandomWishes.innerHTML = data.wishes.map((wish) => `<p>${wish}</p>`).join("");
   if (fandomMedia) {
     if (data.video) {
-      fandomMedia.innerHTML = `<video class="fandom-video" src="${data.video}" autoplay loop muted playsinline></video>`;
+      const splitClass = data.videoAlphaSplit ? " fandom-video-split" : "";
+      const fallbackImage = Array.isArray(data.image) ? data.image[0] : (data.image || "./image.png");
+      const fallbackAlt = Array.isArray(data.imageAlt) ? data.imageAlt[0] : (data.imageAlt || `${data.label} 图片`);
+      fandomMedia.innerHTML = `<video class="fandom-video${splitClass}" src="${data.video}" autoplay loop muted playsinline></video>`;
+      const video = fandomMedia.querySelector(".fandom-video");
+      video?.addEventListener("error", () => {
+        fandomMedia.innerHTML = `<img class="fandom-image" src="${fallbackImage}" alt="${fallbackAlt}" loading="lazy" />`;
+      }, { once: true });
     } else {
       const images = Array.isArray(data.image) ? data.image : [data.image || "./image.png"];
       const alts = Array.isArray(data.imageAlt) ? data.imageAlt : [data.imageAlt || `${data.label} 图片`];

@@ -1675,13 +1675,21 @@ body.overlay-open {
 }
 
 .fandom-video {
-  width: auto;
+  width: min(100%, 360px);
   height: auto;
-  max-width: 100%;
   max-height: min(42vh, 400px);
   display: block;
   object-fit: contain;
   border-radius: 8px;
+}
+
+.fandom-video.fandom-video-split {
+  width: min(100%, 360px);
+  aspect-ratio: 47 / 58;
+  max-height: min(42vh, 400px);
+  object-fit: cover;
+  object-position: top center;
+  max-width: 100%;
 }
 
 .intro-strip,
