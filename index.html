@@ -23,18 +23,6 @@
     <canvas id="confetti-canvas" aria-hidden="true"></canvas>
     <video id="shared_camera_video" autoplay playsinline muted aria-hidden="true"></video>
 
-    <header class="topbar">
-      <span class="brand">Birthday Museum</span>
-      <nav aria-label="页面导航">
-        <a href="#top" class="magnetic">开场</a>
-        <a href="#photos" class="magnetic">照片墙</a>
-        <a href="#universe" class="magnetic">兴趣宇宙</a>
-        <a href="#gacha" class="magnetic">抽卡</a>
-        <a href="#letter" class="magnetic">来信</a>
-        <a href="#saturn-stage" class="magnetic">星云</a>
-      </nav>
-    </header>
-
     <main>
       <section class="countdown-gate" id="gate" aria-label="生日倒计时">
         <canvas id="nebula-canvas" aria-hidden="true"></canvas>
@@ -180,6 +168,8 @@
         </div>
 
         <div class="gacha-stage">
+          <video class="gacha-bg-video" src="./assets/onmyoji/main_bg.mp4" autoplay loop muted playsinline aria-hidden="true"></video>
+          <div class="gacha-bg-summon" aria-hidden="true"></div>
           <div class="gacha-atmosphere" aria-hidden="true">
             <span></span>
             <span></span>
@@ -187,8 +177,8 @@
           </div>
           <div class="gacha-console">
             <p class="gacha-kicker">生日征集卡池</p>
-            <h3>手提箱已经打开，下一张会是什么祝福？</h3>
-            <button class="primary-action magnetic gacha-button" type="button">抽一张生日祝福</button>
+            <h3>画下一道生日符咒，召来今晚的好运。</h3>
+            <button class="primary-action magnetic gacha-button" type="button">开始画符召唤</button>
           </div>
 
           <div class="gacha-result" data-rarity="idle">
@@ -208,17 +198,33 @@
             </div>
           </div>
         </div>
+
+        <div class="summon-overlay" aria-hidden="true">
+          <video class="summon-video" src="./assets/onmyoji/main_bg.mp4" autoplay loop muted playsinline></video>
+          <div class="summon-vignette" aria-hidden="true"></div>
+          <div class="summon-circle" aria-hidden="true"></div>
+          <div class="summon-spell">
+            <div class="summon-spell-frame" aria-hidden="true"></div>
+            <canvas class="summon-canvas" width="620" height="620" aria-label="画符区域"></canvas>
+            <div class="summon-rune" aria-hidden="true">祝</div>
+          </div>
+          <p class="summon-copy">在符咒上画一笔，松手后召唤生日祝福。</p>
+          <button class="summon-cancel magnetic" type="button">取消</button>
+        </div>
       </section>
 
       <section class="letter-section reveal" id="letter" aria-label="生日来信">
         <div class="letter-panel">
-          <p class="eyebrow">来信</p>
+          <p class="eyebrow">yyx来信</p>
           <div class="letter-lines" aria-live="polite">
-            <p class="letter-line">我花了很久，才把这一页页慢慢做好。</p>
-            <p class="letter-line">因为我想送你的，不只是四个字的生日快乐。</p>
-            <p class="letter-line">我想把你喜欢的宇宙、你的照片、还有一些很轻的心事，都放进来。</p>
-            <p class="letter-line">这样你点开的时候，就会知道这一整晚都是为你准备的。</p>
+            <p class="letter-line">总收到你送的充满心意的手作礼物，我也想送你这种。</p>
+            <p class="letter-line">可惜yyx实在是个手残，我想，那我还能做点什么呢？</p>
+            <p class="letter-line">于是我就想到了这个生日剧场。做网页，这个我熟啊😋</p>
+            <p class="letter-line">我想把你喜欢的一切、和我们的回忆都放进来。</p>
+            <p class="letter-line">这样你点开的时候，就会知道这一整页都是为你准备的。</p>
             <p class="letter-line">也希望以后很多很多年，我都还能继续陪你过生日。</p>
+            <p class="letter-line">最后，祝你生日快乐，永远平安喜乐！</p>
+            <p class="letter-line">—— 来自 yyx</p>
           </div>
         </div>
       </section>
@@ -228,10 +234,8 @@
           <p class="eyebrow">终章</p>
           <h2>再往前走一点，星云会替我把最后一句话说完。</h2>
           <p>
-            点击任意地方，会掉落一颗蓝色祝福；按
-            <kbd>B</kbd>，会触发一次大彩蛋。
+            自己寻找一下彩蛋吧。提示一下：最开始打开网页的时候是不是找你要过什么权限？和手有关
           </p>
-          <button class="primary-action magnetic" type="button" data-burst="big">再放一次生日烟花</button>
         </div>
       </section>
 

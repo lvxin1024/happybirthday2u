@@ -11,16 +11,16 @@ const photoMemories = [
     note: "看起来是帮我切蛋糕？感觉高中过去了很久啊"
   },
   {
+    date: "2026.03.28",
+    location: "苏州",
+    title: "大一暑假回来时中医诊所出来团建",
+    note: "本来想放那张燃冬的，但是我表情太狰狞了，改了这张"
+  },
+  {
     date: "2026.01.14",
     location: "上海",
     title: "成人礼捏",
     note: "cxt与yyx目前也可能是未来唯一一张都化妆了的照片"
-  },
-  {
-    date: "2026.03.28",
-    location: "苏州",
-    title: "大一暑假回来时中医诊所出来团建",
-    note: "本来想放那张燃冬的1，但是我表情太狰狞了，改了这张"
   },
   {
     date: "2026.05.09",
@@ -184,6 +184,10 @@ const gachaRarity = document.querySelector(".gacha-rarity");
 const gachaTitle = document.querySelector(".gacha-title");
 const gachaBody = document.querySelector(".gacha-body");
 const gachaSignature = document.querySelector(".gacha-signature");
+const summonOverlay = document.querySelector(".summon-overlay");
+const summonCanvas = document.querySelector(".summon-canvas");
+const summonCancel = document.querySelector(".summon-cancel");
+const summonCopy = document.querySelector(".summon-copy");
 const letterLines = document.querySelectorAll(".letter-line");
 
 birthdayReveal.querySelector("p").textContent = birthdayName;
@@ -234,6 +238,11 @@ let pointerLastX = 0;
 let pointerLastY = 0;
 let pointerDragged = false;
 let saturnDragActive = false;
+let summoningActive = false;
+let drawingSummon = false;
+let summonStrokeStarted = false;
+let summonLastX = 0;
+let summonLastY = 0;
 let parentHands = null;
 let parentHandsStarted = false;
 let parentHandsFramePending = false;
@@ -1018,6 +1027,136 @@ function openFandomModal(key, sourcePlanet) {
   showToast("一颗行星被点亮了。");
 }
 
+function getSummonPoint(event) {
+  const rect = summonCanvas.getBoundingClientRect();
+  const scaleX = summonCanvas.width / rect.width;
+  const scaleY = summonCanvas.height / rect.height;
+
+  return {
+    x: (event.clientX - rect.left) * scaleX,
+    y: (event.clientY - rect.top) * scaleY
+  };
+}
+
+function clearSummonCanvas() {
+  if (!summonCanvas) {
+    return;
+  }
+
+  const summonCtx = summonCanvas.getContext("2d");
+  summonCtx.clearRect(0, 0, summonCanvas.width, summonCanvas.height);
+  summonCtx.save();
+  summonCtx.strokeStyle = "rgba(255, 244, 207, 0.24)";
+  summonCtx.lineWidth = 2;
+  summonCtx.setLineDash([14, 18]);
+  summonCtx.beginPath();
+  summonCtx.arc(summonCanvas.width / 2, summonCanvas.height / 2, summonCanvas.width * 0.36, 0, Math.PI * 2);
+  summonCtx.stroke();
+  summonCtx.restore();
+}
+
+function openSummonOverlay() {
+  if (!summonOverlay || gachaBusy || summoningActive) {
+    return;
+  }
+
+  summoningActive = true;
+  summonStrokeStarted = false;
+  summonOverlay.classList.remove("is-casting");
+  summonOverlay.classList.add("is-open");
+  summonOverlay.setAttribute("aria-hidden", "false");
+  if (summonCopy) {
+    summonCopy.textContent = "在符咒上画一笔，松手后召唤生日祝福。";
+  }
+  clearSummonCanvas();
+  showToast("符咒已经铺好。");
+}
+
+function closeSummonOverlay() {
+  if (!summonOverlay || summonOverlay.classList.contains("is-casting")) {
+    return;
+  }
+
+  summonOverlay.classList.remove("is-open");
+  summonOverlay.setAttribute("aria-hidden", "true");
+  summoningActive = false;
+  drawingSummon = false;
+  summonStrokeStarted = false;
+}
+
+function startSummonStroke(event) {
+  if (!summonCanvas || !summoningActive || summonOverlay.classList.contains("is-casting")) {
+    return;
+  }
+
+  event.preventDefault();
+  drawingSummon = true;
+  summonStrokeStarted = true;
+  summonCanvas.setPointerCapture?.(event.pointerId);
+  const point = getSummonPoint(event);
+  summonLastX = point.x;
+  summonLastY = point.y;
+
+  const summonCtx = summonCanvas.getContext("2d");
+  summonCtx.save();
+  summonCtx.fillStyle = "rgba(255, 244, 207, 0.86)";
+  summonCtx.shadowColor = "rgba(255, 226, 142, 0.9)";
+  summonCtx.shadowBlur = 22;
+  summonCtx.beginPath();
+  summonCtx.arc(point.x, point.y, 7, 0, Math.PI * 2);
+  summonCtx.fill();
+  summonCtx.restore();
+}
+
+function drawSummonStroke(event) {
+  if (!drawingSummon || !summonCanvas) {
+    return;
+  }
+
+  event.preventDefault();
+  const point = getSummonPoint(event);
+  const summonCtx = summonCanvas.getContext("2d");
+  summonCtx.save();
+  summonCtx.lineCap = "round";
+  summonCtx.lineJoin = "round";
+  summonCtx.lineWidth = 18;
+  summonCtx.strokeStyle = "rgba(255, 244, 207, 0.92)";
+  summonCtx.shadowColor = "rgba(255, 226, 142, 0.92)";
+  summonCtx.shadowBlur = 22;
+  summonCtx.beginPath();
+  summonCtx.moveTo(summonLastX, summonLastY);
+  summonCtx.lineTo(point.x, point.y);
+  summonCtx.stroke();
+  summonCtx.restore();
+  summonLastX = point.x;
+  summonLastY = point.y;
+}
+
+function castSummonSpell() {
+  if (!summoningActive || !summonOverlay || summonOverlay.classList.contains("is-casting")) {
+    return;
+  }
+
+  if (!summonStrokeStarted) {
+    closeSummonOverlay();
+    return;
+  }
+
+  drawingSummon = false;
+  summonOverlay.classList.add("is-casting");
+  if (summonCopy) {
+    summonCopy.textContent = "符咒回应了。";
+  }
+  showToast("召唤阵亮起来了。");
+
+  setTimeout(() => {
+    summonOverlay.classList.remove("is-open", "is-casting");
+    summonOverlay.setAttribute("aria-hidden", "true");
+    summoningActive = false;
+    drawGachaCard();
+  }, 980);
+}
+
 function drawGachaCard() {
   if (gachaBusy || !gachaResult) {
     return;
@@ -1286,6 +1425,11 @@ cake.addEventListener("keyup", (event) => {
 });
 
 window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && summonOverlay?.classList.contains("is-open")) {
+    closeSummonOverlay();
+    return;
+  }
+
   if (event.key === "Escape" && activeModal) {
     closeOverlay(activeModal);
     return;
@@ -1334,7 +1478,12 @@ document.querySelectorAll(".overlay-close").forEach((button) => {
   });
 });
 
-gachaButton?.addEventListener("click", drawGachaCard);
+gachaButton?.addEventListener("click", openSummonOverlay);
+summonCancel?.addEventListener("click", closeSummonOverlay);
+summonCanvas?.addEventListener("pointerdown", startSummonStroke);
+summonCanvas?.addEventListener("pointermove", drawSummonStroke);
+summonCanvas?.addEventListener("pointerup", castSummonSpell);
+summonCanvas?.addEventListener("pointercancel", closeSummonOverlay);
 
 const observer = new IntersectionObserver(
   (entries) => {
