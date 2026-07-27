@@ -214,7 +214,7 @@ let ringX = mouseX;
 let ringY = mouseY;
 let nebulaProgress = 0;
 let nebulaUnlocked = false;
-const nebulaEnabled = false;
+const nebulaEnabled = config.enableGateNebula === true;
 let rotationX = -0.18;
 let rotationY = 0.28;
 let targetRotationX = rotationX;
@@ -1533,7 +1533,7 @@ if (saturnStage) {
     (entries) => {
       for (const entry of entries) {
         saturnStageVisible = entry.isIntersecting && entry.intersectionRatio >= 0.45;
-        if (saturnStageVisible) {
+        if (saturnStageVisible && !saturnExperienceStarted) {
           ensureSaturnExperienceStarted();
         }
         syncSaturnMode(saturnStageVisible ? "full" : "bg");
