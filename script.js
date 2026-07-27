@@ -246,6 +246,7 @@ let summonLastY = 0;
 let parentHands = null;
 let parentHandsStarted = false;
 let parentHandsFramePending = false;
+let saturnExperienceStarted = false;
 let activeModal = null;
 let gachaBusy = false;
 let heroCandleLit = false;
@@ -740,6 +741,15 @@ function loadSaturnFrame() {
 
   saturnFrame.dataset.loaded = "true";
   saturnFrame.src = nextSrc;
+}
+
+function ensureSaturnExperienceStarted() {
+  if (saturnExperienceStarted) {
+    return;
+  }
+
+  saturnExperienceStarted = true;
+  requestCameraPermissionFirst();
 }
 
 async function requestCameraPermissionFirst() {
@@ -1520,6 +1530,9 @@ if (saturnStage) {
     (entries) => {
       for (const entry of entries) {
         saturnStageVisible = entry.isIntersecting && entry.intersectionRatio >= 0.45;
+        if (entry.isIntersecting) {
+          ensureSaturnExperienceStarted();
+        }
         syncSaturnMode(saturnStageVisible ? "full" : "bg");
       }
     },
@@ -1538,6 +1551,5 @@ updateCandleJelly();
 animateCursor();
 updateScrollSky();
 syncSaturnMode("bg");
-requestCameraPermissionFirst();
 checkGate();
 setInterval(checkGate, 1000);
