@@ -747,10 +747,6 @@ function loadSaturnFrame() {
 }
 
 function ensureSaturnExperienceStarted() {
-  if (saturnExperienceStarted) {
-    return;
-  }
-
   saturnExperienceStarted = true;
   requestCameraPermissionFirst();
 }
