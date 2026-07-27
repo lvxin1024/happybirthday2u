@@ -353,7 +353,6 @@ function resizeCanvas() {
   nebulaCanvas.style.width = `${window.innerWidth}px`;
   nebulaCanvas.style.height = `${window.innerHeight}px`;
   nebulaCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
-  // createNebulaParticles();
   setupPlanetOrbits();
 }
 
@@ -1546,7 +1545,6 @@ setupLetterReveal();
 resizeCanvas();
 animatePlanetOrbits();
 drawConfetti();
-// drawNebula();
 updateCandleJelly();
 animateCursor();
 updateScrollSky();
