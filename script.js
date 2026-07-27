@@ -1555,6 +1555,5 @@ if (nebulaEnabled) {
 updateCandleJelly();
 animateCursor();
 updateScrollSky();
-syncSaturnMode("bg");
 checkGate();
 setInterval(checkGate, 1000);
