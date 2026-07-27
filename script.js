@@ -214,6 +214,7 @@ let ringX = mouseX;
 let ringY = mouseY;
 let nebulaProgress = 0;
 let nebulaUnlocked = false;
+const nebulaEnabled = false;
 let rotationX = -0.18;
 let rotationY = 0.28;
 let targetRotationX = rotationX;
@@ -353,6 +354,9 @@ function resizeCanvas() {
   nebulaCanvas.style.width = `${window.innerWidth}px`;
   nebulaCanvas.style.height = `${window.innerHeight}px`;
   nebulaCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  if (nebulaEnabled) {
+    createNebulaParticles();
+  }
   setupPlanetOrbits();
 }
 
@@ -1529,7 +1533,7 @@ if (saturnStage) {
     (entries) => {
       for (const entry of entries) {
         saturnStageVisible = entry.isIntersecting && entry.intersectionRatio >= 0.45;
-        if (entry.isIntersecting) {
+        if (saturnStageVisible) {
           ensureSaturnExperienceStarted();
         }
         syncSaturnMode(saturnStageVisible ? "full" : "bg");
@@ -1545,6 +1549,9 @@ setupLetterReveal();
 resizeCanvas();
 animatePlanetOrbits();
 drawConfetti();
+if (nebulaEnabled) {
+  drawNebula();
+}
 updateCandleJelly();
 animateCursor();
 updateScrollSky();
