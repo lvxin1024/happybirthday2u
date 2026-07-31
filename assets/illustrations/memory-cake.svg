@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title">
+  <title id="title">星光下的生日蛋糕</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#071426"/>
+      <stop offset="1" stop-color="#1666d9"/>
+    </linearGradient>
+    <linearGradient id="cake" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#fff"/>
+      <stop offset="1" stop-color="#bfe2ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#sky)"/>
+  <circle cx="150" cy="120" r="3" fill="#fff"/><circle cx="660" cy="150" r="5" fill="#8fc4ff"/>
+  <circle cx="570" cy="72" r="2" fill="#fff"/><circle cx="250" cy="210" r="4" fill="#ff8f86"/>
+  <ellipse cx="400" cy="500" rx="245" ry="36" fill="#02050d" opacity=".38"/>
+  <path d="M245 338h310v138c0 34-310 34-310 0z" fill="url(#cake)"/>
+  <ellipse cx="400" cy="338" rx="155" ry="42" fill="#eaf4ff"/>
+  <path d="M264 339c36 39 60-13 92 20 29 30 56-27 88 0 32 27 58-21 92-8" fill="none" stroke="#ff8f86" stroke-width="18" stroke-linecap="round"/>
+  <rect x="388" y="205" width="24" height="108" rx="12" fill="#8fc4ff"/>
+  <path d="M400 185c-28-24 6-49 0-66 28 25 39 47 0 66z" fill="#ffcf70"/>
+  <path d="M400 179c-10-12 3-26 1-35 12 12 16 24-1 35z" fill="#fff"/>
+</svg>

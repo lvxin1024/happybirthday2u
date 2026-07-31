@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="一个可定制的生日祝福互动网页。" />
+    <title>生日奇想剧场</title>
+    <link rel="icon" href="./assets/illustrations/memory-cake.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles/site.css" />
+  </head>
+  <body>
+    <div class="scroll-sky" aria-hidden="true"></div>
+    <div class="saturn-background" aria-hidden="true">
+      <iframe
+        class="saturn-frame"
+        src="about:blank"
+        data-src="./experiences/saturn.html?mode=bg"
+        title="土星粒子背景"
+        loading="eager"
+        allow="camera; autoplay; fullscreen"
+      ></iframe>
+    </div>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+    <video id="shared_camera_video" autoplay playsinline muted aria-hidden="true"></video>
+
+    <main>
+      <section class="countdown-gate" id="gate" aria-label="生日倒计时">
+        <canvas id="nebula-canvas" aria-hidden="true"></canvas>
+        <div class="gate-vignette" aria-hidden="true"></div>
+        <div class="gate-content">
+          <div class="single-candle" aria-hidden="true">
+            <span class="single-flame"></span>
+            <span class="single-wax"></span>
+            <span class="single-glow"></span>
+          </div>
+          <p class="gate-kicker">北京时间 <span class="beijing-time">--:--:--</span></p>
+          <h1 class="countdown-title">
+            距离<span data-recipient-name>小星</span>生日还有
+            <span class="countdown-clock">--天 --小时 --分钟 --秒</span>
+          </h1>
+          <p class="gate-hint locked-copy" data-lock-copy>生日剧场会安静等候。</p>
+          <p class="gate-hint unlocked-copy">拖动星云蛋糕，可以换一个角度看今晚的蓝色宇宙。</p>
+        </div>
+        <div class="birthday-reveal" aria-hidden="true">
+          <p data-recipient-name>小星</p>
+          <h2 data-birthday-heading>18岁生日快乐！</h2>
+        </div>
+      </section>
+
+      <section class="hero" id="top">
+        <div class="aurora aurora-one"></div>
+        <div class="aurora aurora-two"></div>
+        <div class="hero-grid hero-grid-simplified">
+          <div class="hero-copy hero-copy-compact reveal">
+            <p class="eyebrow">开始啦</p>
+            <h1>许个愿望吧</br>整个宇宙都会为你保密</h1>
+            <p class="hero-unlock-hint" id="hero-unlock-hint">长按右侧蛋糕上的蜡烛吹灭它，之后才会开启今晚的入口。</p>
+            <div class="hero-actions hero-actions-locked" aria-live="polite">
+              <a class="primary-action magnetic hero-begin-button" href="#photos" data-burst="big" aria-hidden="true" tabindex="-1">Begin</a>
+            </div>
+          </div>
+
+          <div class="stage-card memory-card reveal" aria-label="蓝色生日蛋糕舞台">
+            <div class="spotlight"></div>
+            <div class="floating-icons" data-floating-wishes aria-hidden="true"></div>
+            <button class="cake cake-interactive" type="button" aria-describedby="hero-unlock-hint" aria-label="长按吹灭生日蜡烛，解锁 Begin 按钮">
+              <div class="candle"><span class="flame"></span></div>
+              <div class="icing"></div>
+              <div class="cake-body">
+                <div class="shine"></div>
+                <p data-cake-message>生日快乐！</p>
+              </div>
+              <div class="plate"></div>
+            </button>
+            <p class="cake-hold-tip" aria-live="polite">按住蜡烛约 1.2 秒，点亮今晚的开场。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="photo-wall reveal" id="photos" aria-label="照片墙">
+        <div class="section-heading">
+          <p class="eyebrow">照片墙</p>
+          <h2>把和你有关的瞬间，钉成一面会发光的记忆墙。</h2>
+        </div>
+
+        <div class="photo-board" data-photo-board></div>
+      </section>
+
+      <section class="interest-universe reveal" id="universe" aria-label="兴趣宇宙">
+        <div class="section-heading narrow-heading">
+          <p class="eyebrow">兴趣宇宙</p>
+          <h2>你喜欢的世界，今晚都绕着你发光。</h2>
+        </div>
+
+        <div class="universe-stage">
+          <div class="universe-halo"></div>
+          <div class="orbit orbit-one" aria-hidden="true"></div>
+          <div class="orbit orbit-two" aria-hidden="true"></div>
+          <div class="orbit orbit-three" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="gacha-section reveal" id="gacha" aria-label="生日好运抽卡">
+        <div class="section-heading narrow-heading">
+          <p class="eyebrow">生日好运抽卡</p>
+          <h2>今晚不抽角色，抽一张只属于生日的好运。</h2>
+        </div>
+
+        <div class="gacha-stage">
+          <div class="gacha-bg-summon" aria-hidden="true"></div>
+          <div class="gacha-atmosphere" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="gacha-console">
+            <p class="gacha-kicker">生日征集卡池</p>
+            <h3>画下一道生日符咒，召来今晚的好运。</h3>
+            <button class="primary-action magnetic gacha-button" type="button">开始画符召唤</button>
+          </div>
+
+          <div class="gacha-result" data-rarity="idle">
+            <div class="rarity-beams" aria-hidden="true"></div>
+            <div class="gacha-card-shell">
+              <div class="gacha-card-inner">
+                <div class="gacha-card-face gacha-card-back">
+                  <span>WISH ARCHIVE</span>
+                </div>
+                <div class="gacha-card-face gacha-card-front">
+                  <p class="gacha-rarity">等待抽取</p>
+                  <h3 class="gacha-title">蓝色好运待命中</h3>
+                  <p class="gacha-body">点一下按钮，看看今晚会落下哪张生日增益。</p>
+                  <p class="gacha-signature">来自手提箱的保留位</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="summon-overlay" aria-hidden="true">
+          <div class="summon-vignette" aria-hidden="true"></div>
+          <div class="summon-circle" aria-hidden="true"></div>
+          <div class="summon-spell">
+            <div class="summon-spell-frame" aria-hidden="true"></div>
+            <canvas class="summon-canvas" width="620" height="620" aria-label="画符区域"></canvas>
+            <div class="summon-rune" aria-hidden="true">祝</div>
+          </div>
+          <p class="summon-copy">在符咒上画一笔，松手后召唤生日祝福。</p>
+          <button class="summon-cancel magnetic" type="button">取消</button>
+        </div>
+      </section>
+
+      <section class="letter-section reveal" id="letter" aria-label="生日来信">
+        <div class="letter-panel">
+          <p class="eyebrow" data-letter-label>一封生日来信</p>
+          <div class="letter-lines" data-letter-lines aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="finale reveal" id="finale">
+        <div class="finale-panel">
+          <p class="eyebrow">终章</p>
+          <h2 data-finale-title>愿你的新一岁，有好故事，也有好天气。</h2>
+          <p data-finale-body>下面还有一片可以拖动浏览的星云。</p>
+          <button class="primary-action magnetic" id="enable-gestures" type="button">开启手势互动</button>
+        </div>
+      </section>
+
+      <section class="saturn-stage" id="saturn-stage" aria-label="土星沉浸展示"></section>
+    </main>
+
+    <div class="overlay-layer" aria-hidden="true">
+      <div class="photo-modal" role="dialog" aria-modal="true" aria-labelledby="photo-modal-title" hidden>
+        <button class="overlay-close magnetic" type="button" aria-label="关闭照片弹窗">关闭</button>
+        <div class="photo-modal-media">
+          <img class="photo-modal-image" src="./assets/illustrations/memory-cake.svg" alt="放大的回忆插画" />
+        </div>
+        <div class="photo-modal-note">
+          <p class="photo-modal-meta"></p>
+          <h3 id="photo-modal-title">这一张我记得很清楚</h3>
+          <p class="photo-modal-text"></p>
+        </div>
+      </div>
+
+      <div class="fandom-modal" role="dialog" aria-modal="true" aria-labelledby="fandom-modal-title" hidden>
+        <button class="overlay-close magnetic" type="button" aria-label="关闭祝福弹窗">关闭</button>
+        <div class="fandom-modal-shell">
+          <p class="fandom-label"></p>
+          <h3 id="fandom-modal-title" class="fandom-title"></h3>
+          <div class="fandom-wishes"></div>
+          <div class="fandom-media">
+            <img class="fandom-image" src="./assets/illustrations/interest-universe.svg" alt="兴趣宇宙插图" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" role="status" aria-live="polite"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <script src="./config/site.js"></script>
+    <script src="./scripts/app.js"></script>
+  </body>
+</html>

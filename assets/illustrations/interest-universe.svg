@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title">
+  <title id="title">兴趣宇宙</title>
+  <defs><radialGradient id="space"><stop stop-color="#1666d9"/><stop offset="1" stop-color="#02050d"/></radialGradient></defs>
+  <rect width="800" height="520" rx="24" fill="url(#space)"/>
+  <ellipse cx="400" cy="268" rx="270" ry="92" fill="none" stroke="#bfe2ff" stroke-width="3" opacity=".55" transform="rotate(-10 400 268)"/>
+  <circle cx="400" cy="260" r="112" fill="#8fc4ff"/><circle cx="370" cy="225" r="38" fill="#eaf4ff" opacity=".42"/>
+  <circle cx="145" cy="205" r="28" fill="#ff8f86"/><circle cx="647" cy="344" r="22" fill="#ffcf70"/>
+  <g fill="#fff"><circle cx="116" cy="86" r="4"/><circle cx="690" cy="92" r="6"/><circle cx="615" cy="180" r="3"/><circle cx="235" cy="408" r="5"/></g>
+</svg>

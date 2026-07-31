@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title">
+  <title id="title">月亮、星星与远山</title>
+  <defs><linearGradient id="night" x2="0" y2="1"><stop stop-color="#02050d"/><stop offset="1" stop-color="#1666d9"/></linearGradient></defs>
+  <rect width="800" height="600" fill="url(#night)"/>
+  <path d="M606 95c-77 20-98 122-34 169 36 26 84 19 112-11-87 2-128-102-78-158z" fill="#fff4cf"/>
+  <g fill="#fff"><circle cx="135" cy="104" r="4"/><circle cx="286" cy="170" r="6"/><circle cx="480" cy="86" r="3"/><circle cx="705" cy="318" r="5"/></g>
+  <path d="M0 500l180-198 119 121 111-159 174 181 86-86 130 140v101H0z" fill="#0b3f83"/>
+  <path d="M0 524l205-142 129 101 113-86 164 104 89-61 100 78v82H0z" fill="#071426"/>
+  <path d="M0 545c180-35 321 37 485-3 120-29 218-12 315 13v45H0z" fill="#2f8cff" opacity=".5"/>
+</svg>

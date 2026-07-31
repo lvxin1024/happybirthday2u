@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title">
+  <title id="title">装着星光的礼物盒</title>
+  <defs><radialGradient id="bg"><stop stop-color="#eaf4ff"/><stop offset="1" stop-color="#b8d9ff"/></radialGradient></defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <path d="M400 78l12 34 36 1-29 21 10 35-29-20-29 20 10-35-29-21 36-1z" fill="#ffcf70"/>
+  <path d="M210 270h380v250H210z" fill="#1666d9"/><path d="M180 220h440v92H180z" fill="#2f8cff"/>
+  <path d="M366 220h68v300h-68z" fill="#ff8f86"/><path d="M180 252h440v26H180z" fill="#ffaaa2"/>
+  <path d="M400 220c-80-2-145-60-111-111 31-46 98 30 111 111z" fill="#fff" opacity=".88"/>
+  <path d="M400 220c80-2 145-60 111-111-31-46-98 30-111 111z" fill="#fff" opacity=".88"/>
+  <circle cx="142" cy="135" r="7" fill="#2f8cff"/><circle cx="650" cy="150" r="9" fill="#ff8f86"/>
+  <circle cx="685" cy="348" r="5" fill="#0b3f83"/><circle cx="120" cy="410" r="5" fill="#fff"/>
+</svg>

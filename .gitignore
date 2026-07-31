@@ -1,0 +1,6 @@
+.DS_Store
+Thumbs.db
+*.log
+
+# Keep personal photos out of commits until their publication rights are confirmed.
+assets/photos/private/
